@@ -1,7 +1,7 @@
 import React from 'react'
-import Videop from '../component/regenvest_home/videop'
-import Nav from '../component/nav'
-import Footer from '../component/thriveFi/footer'
+import Videop from '../../components/regenvest_home/videop'
+import Nav from '../../components/nav'
+import Footer from '../../components/thriveFi/footer'
 
 
 export default function Page() {

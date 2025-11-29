@@ -2,8 +2,8 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import Nav from "../component/nav";
-import Footer from "../component/thriveFi/footer";
+import Nav from "../../components/nav";
+import Footer from "../../components/thriveFi/footer";
 import {
   FaChartLine,
   FaUsers,
@@ -63,89 +63,137 @@ export default function About() {
 
   // Enhanced blob configuration for better visibility
   const blobs = [
-    { top: "5%", left: "10%", size: 300, duration: 8, color: "from-indigo-400 to-purple-400" },
-    { top: "15%", right: "5%", size: 250, duration: 10, color: "from-purple-400 to-fuchsia-400" },
-    { top: "40%", left: "5%", size: 280, duration: 12, color: "from-fuchsia-400 to-indigo-400" },
-    { top: "60%", right: "15%", size: 220, duration: 9, color: "from-indigo-400 to-purple-400" },
-    { bottom: "20%", left: "20%", size: 240, duration: 11, color: "from-purple-400 to-fuchsia-400" },
-    { bottom: "5%", right: "30%", size: 200, duration: 13, color: "from-fuchsia-400 to-indigo-400" },
-    { top: "30%", left: "50%", size: 180, duration: 14, color: "from-indigo-400 to-purple-400" },
-    { bottom: "40%", left: "70%", size: 160, duration: 15, color: "from-purple-400 to-fuchsia-400" },
+    {
+      top: "5%",
+      left: "10%",
+      size: 300,
+      duration: 8,
+      color: "from-indigo-400 to-purple-400",
+    },
+    {
+      top: "15%",
+      right: "5%",
+      size: 250,
+      duration: 10,
+      color: "from-purple-400 to-fuchsia-400",
+    },
+    {
+      top: "40%",
+      left: "5%",
+      size: 280,
+      duration: 12,
+      color: "from-fuchsia-400 to-indigo-400",
+    },
+    {
+      top: "60%",
+      right: "15%",
+      size: 220,
+      duration: 9,
+      color: "from-indigo-400 to-purple-400",
+    },
+    {
+      bottom: "20%",
+      left: "20%",
+      size: 240,
+      duration: 11,
+      color: "from-purple-400 to-fuchsia-400",
+    },
+    {
+      bottom: "5%",
+      right: "30%",
+      size: 200,
+      duration: 13,
+      color: "from-fuchsia-400 to-indigo-400",
+    },
+    {
+      top: "30%",
+      left: "50%",
+      size: 180,
+      duration: 14,
+      color: "from-indigo-400 to-purple-400",
+    },
+    {
+      bottom: "40%",
+      left: "70%",
+      size: 160,
+      duration: 15,
+      color: "from-purple-400 to-fuchsia-400",
+    },
   ];
 
   return (
     <div className="bg-gray-50 min-h-screen relative overflow-hidden">
       <Nav />
       <h1 className="text-4xl md:text-5xl text-center font-extrabold bg-gradient-to-r from-indigo-700 via-purple-700 to-fuchsia-700 bg-clip-text text-transparent leading-snug font-[Oswald]">
-    About ThriveFi
-  </h1>
+        About ThriveFi
+      </h1>
       {/* Enhanced Floating Blobs */}
       <div className="fixed inset-0 z-0 pointer-events-none">
         {blobs.map((blob, index) => (
           <motion.div
             key={index}
             initial={{ opacity: 0.6, scale: 0.8 }}
-            animate={{ 
-              y: [0, 40, 0], 
+            animate={{
+              y: [0, 40, 0],
               x: [0, 20, 0],
               opacity: [0.4, 0.7, 0.4],
-              scale: [0.8, 1.1, 0.8]
+              scale: [0.8, 1.1, 0.8],
             }}
-            transition={{ 
-              duration: blob.duration, 
-              repeat: Infinity, 
+            transition={{
+              duration: blob.duration,
+              repeat: Infinity,
               ease: "easeInOut",
-              delay: index * 0.5
+              delay: index * 0.5,
             }}
             className="absolute pointer-events-none"
-            style={{ 
-              top: blob.top, 
-              left: blob.left, 
-              right: blob.right, 
-              bottom: blob.bottom 
+            style={{
+              top: blob.top,
+              left: blob.left,
+              right: blob.right,
+              bottom: blob.bottom,
             }}
           >
             {/* Using gradient div instead of image for better visibility */}
-            <div 
+            <div
               className={`rounded-full bg-gradient-to-br ${blob.color} blur-xl opacity-60`}
-              style={{ 
-                width: blob.size, 
-                height: blob.size 
+              style={{
+                width: blob.size,
+                height: blob.size,
               }}
             />
             {/* Adding a second layer for more depth */}
-            <div 
+            <div
               className={`absolute top-1/4 left-1/4 rounded-full bg-gradient-to-br ${blob.color} blur-lg opacity-40`}
-              style={{ 
-                width: blob.size * 0.5, 
-                height: blob.size * 0.5 
+              style={{
+                width: blob.size * 0.5,
+                height: blob.size * 0.5,
               }}
             />
           </motion.div>
         ))}
-        
+
         {/* Additional blob images if you have the blob.png file */}
         {blobs.slice(0, 4).map((blob, index) => (
           <motion.div
             key={`img-${index}`}
             initial={{ opacity: 0.3, scale: 0.9 }}
-            animate={{ 
-              y: [0, 30, 0], 
+            animate={{
+              y: [0, 30, 0],
               opacity: [0.3, 0.6, 0.3],
-              rotate: [0, 10, 0]
+              rotate: [0, 10, 0],
             }}
-            transition={{ 
-              duration: blob.duration + 2, 
-              repeat: Infinity, 
+            transition={{
+              duration: blob.duration + 2,
+              repeat: Infinity,
               ease: "easeInOut",
-              delay: index * 1.2
+              delay: index * 1.2,
             }}
             className="absolute pointer-events-none"
-            style={{ 
-              top: blob.top, 
-              left: blob.left, 
-              right: blob.right, 
-              bottom: blob.bottom 
+            style={{
+              top: blob.top,
+              left: blob.left,
+              right: blob.right,
+              bottom: blob.bottom,
             }}
           >
             <Image
@@ -159,82 +207,57 @@ export default function About() {
         ))}
       </div>
 
-      
-
       {/* Hero Section */}
       <section className="relative flex flex-col md:flex-row items-center justify-between w-full bg-white/90 backdrop-blur-sm px-6 md:px-12 py-16 z-10">
         {/* Left Content */}
-        {/* <div className="flex flex-col justify-center w-full md:w-1/2 relative z-10 text-center md:text-left">
-          <h1 className="text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-indigo-700 via-purple-700 to-fuchsia-700 bg-clip-text text-transparent leading-snug font-[Oswald]">
-            About ThriveFi
-          </h1>
-          <p className="mt-6 text-lg text-gray-700 leading-relaxed max-w-lg mx-auto md:mx-0">
-          
-          
-        ThriveFi isn’t just another after-school program, it’s a movement. Founded by a high school student, Anvay Arora, ThriveFi shows that financial education can be fun and engaging rather than just boring spreadsheets or complicated terms. It focuses on making money skills accessible and exciting for everyone.
+        <div className="flex flex-col justify-center w-full md:w-1/2 relative z-10 text-center md:text-left">
+          {/* Heading */}
 
-ThriveFi has three key elements, which are not about report card grades but something much cooler:
-
-- Conference: Students share ideas that are more exciting than stock market rumors. They learn from experts who make finance feel like storytime.
-- Competition: Classrooms become boardrooms where students compete using creativity and strategy, fueled by maybe a bit of caffeine.
-- Consulting: Students don’t just learn about finance—they practice it. They tackle real problems like mini Wall Street experts.
-
-The result? A new generation of financial thinkers who are bold, globally aware, and ready to change how the world views money.
-
-So, principals, teachers, and students—here’s your invitation. Whether you’re in Singapore, San Francisco, or Surat, ThriveFi is your chance to learn, compete, and excel.
-         
-         
+          {/* Intro */}
+          <p className="mt-6 text-lg text-gray-700 leading-relaxed max-w-xl mx-auto md:mx-0">
+            ThriveFi isn’t just another after-school program—it’s a movement.
+            Founded by{" "}
+            <span className="font-semibold text-gray-900">Anvay Arora</span>,
+            ThriveFi shows that financial education can be fun and engaging, not
+            just boring spreadsheets or confusing terms.
           </p>
-        </div> */}
 
+          {/* Key Elements */}
+          <div className="mt-8 space-y-6">
+            <div className="bg-white/70 backdrop-blur-sm p-5 rounded-xl shadow-sm hover:shadow-md transition">
+              <h3 className="font-semibold text-indigo-700">📢 Conference</h3>
+              <p className="text-gray-600 text-base mt-1">
+                Students share bold ideas and learn from experts who make
+                finance feel like storytime.
+              </p>
+            </div>
+            <div className="bg-white/70 backdrop-blur-sm p-5 rounded-xl shadow-sm hover:shadow-md transition">
+              <h3 className="font-semibold text-purple-700">🏆 Competition</h3>
+              <p className="text-gray-600 text-base mt-1">
+                Classrooms turn into boardrooms where creativity and strategy
+                take the spotlight.
+              </p>
+            </div>
+            <div className="bg-white/70 backdrop-blur-sm p-5 rounded-xl shadow-sm hover:shadow-md transition">
+              <h3 className="font-semibold text-fuchsia-700">🤝 Consulting</h3>
+              <p className="text-gray-600 text-base mt-1">
+                Students tackle real problems hands-on, gaining practical
+                finance experience like mini Wall Street experts.
+              </p>
+            </div>
+          </div>
 
-{/* Left Content */}
-<div className="flex flex-col justify-center w-full md:w-1/2 relative z-10 text-center md:text-left">
-  {/* Heading */}
-  
-
-  {/* Intro */}
-  <p className="mt-6 text-lg text-gray-700 leading-relaxed max-w-xl mx-auto md:mx-0">
-    ThriveFi isn’t just another after-school program—it’s a movement.
-    Founded by <span className="font-semibold text-gray-900">Anvay Arora</span>,
-    ThriveFi shows that financial education can be fun and engaging, not
-    just boring spreadsheets or confusing terms.
-  </p>
-
-  {/* Key Elements */}
-  <div className="mt-8 space-y-6">
-    <div className="bg-white/70 backdrop-blur-sm p-5 rounded-xl shadow-sm hover:shadow-md transition">
-      <h3 className="font-semibold text-indigo-700">📢 Conference</h3>
-      <p className="text-gray-600 text-base mt-1">
-        Students share bold ideas and learn from experts who make finance
-        feel like storytime.
-      </p>
-    </div>
-    <div className="bg-white/70 backdrop-blur-sm p-5 rounded-xl shadow-sm hover:shadow-md transition">
-      <h3 className="font-semibold text-purple-700">🏆 Competition</h3>
-      <p className="text-gray-600 text-base mt-1">
-        Classrooms turn into boardrooms where creativity and strategy take
-        the spotlight.
-      </p>
-    </div>
-    <div className="bg-white/70 backdrop-blur-sm p-5 rounded-xl shadow-sm hover:shadow-md transition">
-      <h3 className="font-semibold text-fuchsia-700">🤝 Consulting</h3>
-      <p className="text-gray-600 text-base mt-1">
-        Students tackle real problems hands-on, gaining practical finance
-        experience like mini Wall Street experts.
-      </p>
-    </div>
-  </div>
-
-  {/* Closing */}
-  <p className="mt-10 text-lg text-gray-700 leading-relaxed max-w-xl mx-auto md:mx-0">
-   The result? A new generation of financial thinkers who are bold, globally aware, and ready to change how the world views money.
-
-So, principals, teachers, and students—here’s your invitation.<span className="font-semibold text-gray-900"> Sign-up and Show Up like the Wolf of Wallstreet.
-     </span>
-  </p>
-</div>
-
+          {/* Closing */}
+          <p className="mt-10 text-lg text-gray-700 leading-relaxed max-w-xl mx-auto md:mx-0">
+            The result? A new generation of financial thinkers who are bold,
+            globally aware, and ready to change how the world views money. So,
+            principals, teachers, and students—here’s your invitation.
+            <span className="font-semibold text-gray-900">
+              {" "}
+              Sign-up and Show Up like the Wolf of Wallstreet.
+            </span>
+          </p>
+        </div>
 
         {/* Right Content */}
         <div className="relative w-full md:w-1/2 mt-10 md:mt-0 md:pl-12 z-10">
@@ -256,12 +279,6 @@ So, principals, teachers, and students—here’s your invitation.<span classNam
           transition={{ duration: 0.6 }}
           className="text-3xl md:text-4xl font-bold text-center mb-12 bg-black font-[oswald] bg-clip-text text-transparent"
         >
-        {/* <motion.h2
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-3xl md:text-4xl font-bold text-center mb-12 bg-gradient-to-r from-indigo-700 via-purple-700 to-fuchsia-700 bg-clip-text text-transparent"
-        > */}
           What We Do
         </motion.h2>
 
@@ -301,12 +318,6 @@ So, principals, teachers, and students—here’s your invitation.<span classNam
           transition={{ duration: 0.6 }}
           className="text-3xl md:text-4xl font-bold text-center mb-12 bg-black font-[oswald] bg-clip-text text-transparent"
         >
-        {/* <motion.h2
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-3xl md:text-4xl font-bold text-center mb-12 bg-gradient-to-r from-indigo-700 via-purple-700 to-fuchsia-700 bg-clip-text text-transparent"
-        > */}
           Our Vision
         </motion.h2>
 
