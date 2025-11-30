@@ -13,3 +13,15 @@ export function verifyToken(token) {
     return null;
   }
 }
+
+export function decodeToken(token) {
+  try{
+    return jwt.decode(token,process.env.JWT_SECRET);
+  } catch(err){
+    return null;
+  }
+}
+
+export function generateVerificationCode() {
+  return Math.floor(100000 + Math.random() * 900000).toString();
+}
