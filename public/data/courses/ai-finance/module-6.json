@@ -1,0 +1,95 @@
+{
+  "moduleId": "module-6",
+  "moduleNumber": 6,
+  "title": "Ethics in AI",
+  "description": "Understanding fairness, bias, privacy, and ethical challenges of AI in finance.",
+  "chapters": [
+    {
+      "chapterId": "chapter-6-1",
+      "chapterNumber": 1,
+      "title": "What is Ethics in AI?",
+      "type": "text",
+      "duration": "3:20",
+      "content": {
+        "sections": [
+          {
+            "heading": "What is Ethics?",
+            "text": "Ethics refers to principles ensuring fairness, transparency, and privacy in AI systems."
+          },
+          {
+            "heading": "Why Ethics Matter",
+            "text": "AI influences critical financial decisions like loans and fraud detection, so fairness is essential."
+          }
+        ]
+      }
+    },
+    {
+      "chapterId": "chapter-6-2",
+      "chapterNumber": 2,
+      "title": "Bias in AI",
+      "type": "text",
+      "duration": "4:00",
+      "content": {
+        "sections": [
+          {
+            "heading": "What is Bias?",
+            "text": "Bias occurs when AI produces unfair results due to flawed or imbalanced data."
+          },
+          {
+            "heading": "Types of Bias",
+            "list": [
+              "Data Bias",
+              "Algorithmic Bias"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "chapterId": "chapter-6-3",
+      "chapterNumber": 3,
+      "title": "Privacy Concerns",
+      "type": "text",
+      "duration": "3:50",
+      "content": {
+        "sections": [
+          {
+            "heading": "What is Privacy?",
+            "text": "Privacy concerns how personal data is collected, stored, and used in AI systems."
+          },
+          {
+            "heading": "Why It Matters",
+            "list": [
+              "Protects people from data misuse",
+              "Prevents identity theft",
+              "Builds trust in financial systems"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "chapterId": "chapter-6-4",
+      "chapterNumber": 4,
+      "title": "Ethical Challenges & Regulations",
+      "type": "text",
+      "duration": "4:30",
+      "content": {
+        "sections": [
+          {
+            "heading": "How to Build Ethical AI",
+            "list": [
+              "Use unbiased data",
+              "Ensure transparency",
+              "Protect user privacy"
+            ]
+          },
+          {
+            "heading": "Regulation Example",
+            "text": "SEBI works on guidelines ensuring fair and transparent AI usage in the financial sector."
+          }
+        ]
+      }
+    }
+  ]
+}
