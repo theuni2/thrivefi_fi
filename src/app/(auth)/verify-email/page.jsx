@@ -9,6 +9,7 @@ function VerifyEmail() {
   const [showInput, setShowInput] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [successMsg, setSuccessMsg] = useState("");
 
   const handleSendVerificationEmail = async () => {
     setLoading(true);
@@ -45,11 +46,17 @@ function VerifyEmail() {
         headers: { "Content-Type": "application/json" },
       });
       const data = await res.json();
-      console.log("Email verification response: ", data);
-      setIsVerified(data.success);
+      // console.log("Email verification response: ", data);
       if (!data.success) {
         setError("Invalid verification code");
       }
+      setIsVerified(data.success);
+      setSuccessMsg("Redirecting to profile...");
+
+      setTimeout(() => {
+        window.location.href = "/profile";
+      }, 3000);
+
     } catch (error) {
       console.error("Error verifying email:", error);
       setError("Error verifying email");
@@ -85,6 +92,7 @@ function VerifyEmail() {
           <p className="text-gray-600">
             Your email has been successfully verified. You can now access all features.
           </p>
+          {successMsg}
         </div>
       </div>
     );
