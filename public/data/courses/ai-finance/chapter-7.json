@@ -1,0 +1,121 @@
+{
+  "moduleId": "module-7",
+  "moduleNumber": 7,
+  "title": "The Future of AI in Finance",
+  "description": "Exploring AI advisors, blockchain, crypto, and future careers in finance.",
+  "chapters": [
+    {
+      "chapterId": "chapter-7-1",
+      "chapterNumber": 1,
+      "title": "AI-Powered Customer Advisors",
+      "type": "content",
+      "duration": "4:00",
+      "blocks": [
+        {
+          "type": "heading",
+          "content": "What Are AI Advisors?"
+        },
+        {
+          "type": "text",
+          "content": "AI customer advisors provide 24/7 personalized financial advice using your spending and behavioral data."
+        },
+        {
+          "type": "heading",
+          "content": "How They Work"
+        },
+        {
+          "type": "text",
+          "content": "They analyze transactions, goals, and risk levels to guide users on budgeting and investments."
+        }
+      ]
+    },
+    {
+      "chapterId": "chapter-7-2",
+      "chapterNumber": 2,
+      "title": "Blockchain & Cryptocurrencies",
+      "type": "content",
+      "duration": "4:20",
+      "blocks": [
+        {
+          "type": "heading",
+          "content": "What is Cryptocurrency?"
+        },
+        {
+          "type": "text",
+          "content": "A digital currency not controlled by any central authority. Examples: Bitcoin, Ethereum, Solana."
+        },
+        {
+          "type": "heading",
+          "content": "What is Blockchain?"
+        },
+        {
+          "type": "text",
+          "content": "A decentralized ledger that records secure and transparent transactions."
+        },
+        {
+          "type": "heading",
+          "content": "AI in Blockchain"
+        },
+        {
+          "type": "bullet-list",
+          "items": [
+            {
+              "title": "Fraud detection",
+              "content": ""
+            },
+            {
+              "title": "Faster transaction validation",
+              "content": ""
+            },
+            {
+              "title": "Security improvements",
+              "content": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chapterId": "chapter-7-3",
+      "chapterNumber": 3,
+      "title": "Careers in AI & Finance",
+      "type": "content",
+      "duration": "3:40",
+      "blocks": [
+        {
+          "type": "heading",
+          "content": "Career Paths"
+        },
+        {
+          "type": "bullet-list",
+          "items": [
+            {
+              "title": "Fintech Developer",
+              "content": ""
+            },
+            {
+              "title": "Data Analyst",
+              "content": ""
+            },
+            {
+              "title": "AI Ethics Expert",
+              "content": ""
+            },
+            {
+              "title": "Quantitative Analyst",
+              "content": ""
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "content": "Skills Needed"
+        },
+        {
+          "type": "text",
+          "content": "Understanding AI, data science, coding, and financial literacy prepares students for future roles."
+        }
+      ]
+    }
+  ]
+}

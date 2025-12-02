@@ -1,0 +1,174 @@
+{
+  "chapterId": "chapter-5",
+  "chapterNumber": 5,
+  "title": "AI for Personal Finance",
+  "description": "How AI improves budgeting, credit scores, bills, savings, and financial planning.",
+  "duration": "approx 19 min",
+  "sections": [
+    {
+      "sectionId": "section-5-1",
+      "sectionNumber": 1,
+      "title": "Introduction to Personal Finance & AI",
+      "type": "content",
+      "duration": "3:25",
+      "blocks": [
+        {
+          "type": "heading",
+          "content": "Personal Finance Overview"
+        },
+        {
+          "type": "text",
+          "content": "Personal finance includes budgeting, saving, investing, and managing money."
+        },
+        {
+          "type": "heading",
+          "content": "AI’s Role"
+        },
+        {
+          "type": "text",
+          "content": "AI analyzes spending and provides insights to help people manage money more effectively."
+        }
+      ]
+    },
+    {
+      "sectionId": "section-5-2",
+      "sectionNumber": 2,
+      "title": "AI in Budgeting Apps",
+      "type": "content",
+      "duration": "4:00",
+      "blocks": [
+        {
+          "type": "heading",
+          "content": "How Budgeting Apps Use AI"
+        },
+        {
+          "type": "bullet-list",
+          "items": [
+            {
+              "title": "Automatic expense categorization",
+              "content": ""
+            },
+            {
+              "title": "Spending predictions",
+              "content": ""
+            },
+            {
+              "title": "Overspending alerts",
+              "content": ""
+            },
+            {
+              "title": "Budget planning suggestions",
+              "content": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sectionId": "section-5-3",
+      "sectionNumber": 3,
+      "title": "AI Helps Track Credit Scores",
+      "type": "content",
+      "duration": "4:15",
+      "blocks": [
+        {
+          "type": "heading",
+          "content": "Credit Score Definition"
+        },
+        {
+          "type": "text",
+          "content": "A credit score shows how creditworthy you are and affects loan approvals."
+        },
+        {
+          "type": "heading",
+          "content": "AI Helps Improve Score"
+        },
+        {
+          "type": "bullet-list",
+          "items": [
+            {
+              "title": "Monitoring credit usage",
+              "content": ""
+            },
+            {
+              "title": "Highlighting score-impacting factors",
+              "content": ""
+            },
+            {
+              "title": "Bill payment alerts",
+              "content": ""
+            },
+            {
+              "title": "Debt repayment suggestions",
+              "content": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sectionId": "section-5-4",
+      "sectionNumber": 4,
+      "title": "AI for Bill Payments",
+      "type": "content",
+      "duration": "3:30",
+      "blocks": [
+        {
+          "type": "heading",
+          "content": "Bill Tracking"
+        },
+        {
+          "type": "text",
+          "content": "AI keeps track of bills and ensures payments are made on time."
+        },
+        {
+          "type": "heading",
+          "content": "Benefits"
+        },
+        {
+          "type": "bullet-list",
+          "items": [
+            {
+              "title": "Avoiding late fees",
+              "content": ""
+            },
+            {
+              "title": "Managing recurring payments",
+              "content": ""
+            },
+            {
+              "title": "Tracking subscriptions",
+              "content": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sectionId": "section-5-5",
+      "sectionNumber": 5,
+      "title": "AI Suggests Savings & Loan Options",
+      "type": "content",
+      "duration": "4:00",
+      "blocks": [
+        {
+          "type": "heading",
+          "content": "Savings Goals"
+        },
+        {
+          "type": "text",
+          "content": "AI recommends how much to save based on income and spending patterns."
+        },
+        {
+          "type": "heading",
+          "content": "Loans & Investments"
+        },
+        {
+          "type": "text",
+          "content": "AI suggests suitable loans and financial products with the best interest rates."
+        }
+      ]
+    }
+  ],
+  "quiz": null
+}

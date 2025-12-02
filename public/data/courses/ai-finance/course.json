@@ -3,55 +3,56 @@
   "slug": "ai-finance",
   "title": "AI for Finance",
   "subtitle": "Intel Training Module",
-  "modules": [
+  "description": "A comprehensive course on how AI impacts finance, banking, investments, personal finance, and ethics.",
+  "chapters": [
     {
-      "moduleId": "module-1",
-      "moduleNumber": 1,
+      "chapterId": "chapter-1",
+      "chapterNumber": 1,
       "title": "WHAT IS AI? SIMPLE INTRODUCTION TO AI AND WHY IT MATTERS IN MONEY",
       "description": "Understanding Artificial Intelligence and its applications in personal finance",
-      "totalChapters": 5
+      "content": "chapter-1.json"
     },
     {
-      "moduleId": "module-2",
-      "moduleNumber": 2,
+      "chapterId": "chapter-2",
+      "chapterNumber": 2,
       "title": "SMART BANKING WITH AI",
       "description": "How AI is transforming banking services",
-      "totalChapters": 5
+      "content": "chapter-2.json"
     },
     {
-      "moduleId": "module-3",
-      "moduleNumber": 3,
+      "chapterId": "chapter-3",
+      "chapterNumber": 3,
       "title": "AI IN INVESTMENTS AND TRADING",
       "description": "Learn about robo-advisors and AI-powered trading",
-      "totalChapters": 4
+      "content": "chapter-3.json"
     },
     {
-      "moduleId": "module-4",
-      "moduleNumber": 4,
+      "chapterId": "chapter-4",
+      "chapterNumber": 4,
       "title": "DATA IS MONEY",
       "description": "Understanding how your financial data creates value",
-      "totalChapters": 4
+      "content": "chapter-4.json"
     },
     {
-      "moduleId": "module-5",
-      "moduleNumber": 5,
+      "chapterId": "chapter-5",
+      "chapterNumber": 5,
       "title": "AI FOR PERSONAL FINANCE",
       "description": "Using AI tools to manage your personal finances",
-      "totalChapters": 5
+      "content": "chapter-5.json"
     },
     {
-      "moduleId": "module-6",
-      "moduleNumber": 6,
+      "chapterId": "chapter-6",
+      "chapterNumber": 6,
       "title": "ETHICS IN AI",
       "description": "Understanding ethical considerations in AI finance",
-      "totalChapters": 4
+      "content": "chapter-6.json"
     },
     {
-      "moduleId": "module-7",
-      "moduleNumber": 7,
+      "chapterId": "chapter-7",
+      "chapterNumber": 7,
       "title": "THE FUTURE OF AI IN FINANCE",
       "description": "Exploring future trends and career opportunities",
-      "totalChapters": 3
+      "content": "chapter-7.json"
     }
   ]
 }

@@ -1,0 +1,23 @@
+{
+  "quizId": "quiz-1-1",
+  "chapterId": "chapter-1",
+  "title": "AI Quiz: Match Applications",
+  "type": "matching",
+  "instructions": "Match each AI application to its primary function. Drag or pair the left item with the correct right item.",
+  "passingScore": 60,
+  "timeLimit": "5 min",
+  "pairs": [
+    { "id": 1, "left": "Google Assistant", "right": "Helps with voice commands" },
+    { "id": 2, "left": "Netflix Recommendations", "right": "Recommends movies based on watching history" },
+    { "id": 3, "left": "Face Recognition on Facebook", "right": "Recognizes and tags people in photos" },
+    { "id": 4, "left": "ChatGPT", "right": "Generate human-like text in response to prompts" },
+    { "id": 5, "left": "Teslas", "right": "Autonomous driving and predictive maintenance" }
+  ],
+  "correctMatches": {
+    "1": "Helps with voice commands",
+    "2": "Recommends movies based on watching history",
+    "3": "Recognizes and tags people in photos",
+    "4": "Generate human-like text in response to prompts",
+    "5": "Autonomous driving and predictive maintenance"
+  }
+}

@@ -1,0 +1,162 @@
+{
+  "chapterId": "chapter-1",
+  "chapterNumber": 1,
+  "title": "WHAT IS AI? SIMPLE INTRODUCTION TO AI AND WHY IT MATTERS IN MONEY",
+  "description": "Understanding Artificial Intelligence and how it impacts money decisions.",
+  "duration": "approx 65 min",
+  "sections": [
+    {
+      "sectionId": "section-1-1",
+      "sectionNumber": 1,
+      "title": "What is Artificial Intelligence?",
+      "type": "content",
+      "duration": "15 min",
+      "blocks": [
+        {
+          "type": "heading",
+          "content": "Definition"
+        },
+        {
+          "type": "text",
+          "content": "Artificial Intelligence (AI) is one of the emerging technologies that focuses on creating systems that are capable of performing tasks that would typically require human intelligence. AI can perform tasks like understanding language, recognizing patterns, learning from experience, planning, reasoning, and problem solving thus allowing humans to focus on more pressing problems."
+        },
+        {
+          "type": "heading",
+          "content": "AI in Everyday Life"
+        },
+        {
+          "type": "bullet-list",
+          "items": [
+            {
+              "title": "Smart Assistants",
+              "content": "Google Assistant, Siri, and Alexa found in computers and mobile devices help you navigate information, control devices, or manage your calendar through interpreting voice commands."
+            },
+            {
+              "title": "Search Recommendations",
+              "content": "Platforms such as Google track activity and show recommendations based on preferences. These often appear as ads on YouTube and social media."
+            },
+            {
+              "title": "For You Pages",
+              "content": "Recommendations appear on social/streaming platforms (Netflix, YouTube) that surface related content based on what you watched previously."
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "sectionId": "section-1-2",
+      "sectionNumber": 2,
+      "title": "How AI Helps in Making Money Decisions",
+      "type": "content",
+      "duration": "20 min",
+      "blocks": [
+        {
+          "type": "heading",
+          "content": "AI in Personal Finance Management"
+        },
+        {
+          "type": "bullet-list",
+          "items": [
+            {
+              "title": "Google Pay",
+              "content": "Tracks your spending and shows where you spend most to help manage your budget."
+            },
+            {
+              "title": "PayTM's AI",
+              "content": "Suggests savings plans or bill payment reminders based on your activity."
+            },
+            {
+              "title": "Personal Finance Managers (PFMs)",
+              "content": "Analyze transaction data to provide insight into spending habits and suggest improvements."
+            },
+            {
+              "title": "Robo-Advisors",
+              "content": "Algorithms that manage portfolios and provide investment management services—convenient and efficient for users."
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "content": "AI Helping in Budgeting"
+        },
+        {
+          "type": "text",
+          "content": "Apps like Walnut and MoneyView track spending habits and give personalized tips to save money based on what you spend the most on (food, transport, entertainment)."
+        },
+        {
+          "type": "callout",
+          "style": "info",
+          "title": "AI Helps Manage Your Money Better",
+          "content": "AI can help you budget, save money, and prevent fraud. It can also keep track of bill payments and spot habits that could be improved."
+        },
+        {
+          "type": "example",
+          "content": "If you use PhonePe or Google Pay, AI helps categorize expenses and notifies you about deals or discounts based on past behaviour."
+        }
+      ]
+    },
+
+    {
+      "sectionId": "section-1-3",
+      "sectionNumber": 3,
+      "title": "Why Should You Care About AI?",
+      "type": "content",
+      "duration": "10 min",
+      "blocks": [
+        {
+          "type": "text",
+          "content": "Understanding AI is crucial in today's financial landscape as it directly impacts how we manage money, make investments, and protect our financial information. Becoming familiar with AI helps you use tools to improve budgeting, saving, and investing decisions."
+        }
+      ]
+    },
+
+    {
+      "sectionId": "section-1-4",
+      "sectionNumber": 4,
+      "title": "AI-Powered Chatbots",
+      "type": "content",
+      "duration": "15 min",
+      "blocks": [
+        {
+          "type": "heading",
+          "content": "What Are Chatbots?"
+        },
+        {
+          "type": "text",
+          "content": "Computer programs that use Artificial Intelligence to simulate human conversations."
+        },
+        {
+          "type": "text",
+          "content": "Examples: ChatGPT, Gemini, Deepseek, CoPilot."
+        },
+        {
+          "type": "heading",
+          "content": "How They Work"
+        },
+        {
+          "type": "text",
+          "content": "Natural Language Processing (NLP) allows chatbots to understand and respond to human language."
+        },
+        {
+          "type": "heading",
+          "content": "Examples in Banking"
+        },
+        {
+          "type": "bullet-list",
+          "items": [
+            {
+              "title": "HDFC Bank's EVA (Electronic Virtual Assistant)",
+              "content": "Answers customer queries 24/7 about transactions, account balances, and loan status."
+            },
+            {
+              "title": "ICICI Bank's iPal",
+              "content": "Helps users with everything from checking balances to recommending products (credit cards, loans)."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "quiz": "quiz-chapter-1.json"
+}

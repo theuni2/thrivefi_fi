@@ -16,6 +16,23 @@
       "createdAt": "2024-01-15",
       "updatedAt": "2024-03-20",
       "isPublished": true
+    },
+    {
+      "id": "ai-finance-002",
+      "slug": "ai-finance-2",
+      "title": "AI for Finance 2",
+      "subtitle": "Intel Training Module",
+      "description": "Learn how Artificial Intelligence is transforming personal finance, banking, investments, and more.",
+      "instructor": "Intel Training",
+      "duration": "8 hours",
+      "level": "Beginner",
+      "thumbnail": "/images/courses/ai-finance.jpg",
+      "totalModules": 7,
+      "totalChapters": 25,
+      "tags": ["AI", "Finance", "Banking", "Investment", "Personal Finance"],
+      "createdAt": "2024-01-15",
+      "updatedAt": "2024-03-20",
+      "isPublished": true
     }
   ]
 }

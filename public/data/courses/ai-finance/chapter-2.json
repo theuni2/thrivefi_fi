@@ -1,0 +1,186 @@
+{
+  "chapterId": "chapter-2",
+  "chapterNumber": 2,
+  "title": "SMART BANKING WITH AI",
+  "description": "Learn how Artificial Intelligence is transforming banking, fraud detection, and loan approvals.",
+  "duration": "approx 65 min",
+  "sections": [
+    {
+      "sectionId": "section-2-1",
+      "sectionNumber": 1,
+      "title": "Introduction to AI in Banking",
+      "type": "content",
+      "duration": "15 min",
+      "blocks": [
+        {
+          "type": "heading",
+          "content": "AI in Banking"
+        },
+        {
+          "type": "text",
+          "content": "Banks often use smart technology to make services like money transfers, fraud detection, customer service, and loan approvals more convenient and efficient for both the consumer and the bank."
+        },
+        {
+          "type": "heading",
+          "content": "Examples"
+        },
+        {
+          "type": "bullet-list",
+          "items": [
+            {
+              "title": "SBI",
+              "content": "Uses AI-powered fraud alerts to detect suspicious activities in real-time, helping to protect users from potential fraud."
+            },
+            {
+              "title": "ICICI",
+              "content": "Uses AI for instant loan approvals, analyzing a user's transaction history and credit score to decide if they qualify for a loan, often without needing to visit a bank."
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "content": "Why It Matters"
+        },
+        {
+          "type": "text",
+          "content": "Banking becomes safer and more accessible by improving customer experiences by reducing wait times, offering faster services, and providing personalized financial advice."
+        }
+      ]
+    },
+    {
+      "sectionId": "section-2-2",
+      "sectionNumber": 2,
+      "title": "Fraud Detection with AI",
+      "type": "content",
+      "duration": "20 min",
+      "blocks": [
+        {
+          "type": "heading",
+          "content": "AI and Fraud Detection"
+        },
+        {
+          "type": "text",
+          "content": "AI helps banks by monitoring transactions in real-time to detect fraudulent activity. For instance, if there is a large withdrawal from a location that you don't usually visit, AI can flag it for review or send you an alert."
+        },
+        {
+          "type": "heading",
+          "content": "Examples"
+        },
+        {
+          "type": "bullet-list",
+          "items": [
+            {
+              "title": "State Bank of India (SBI)",
+              "content": "Uses its SIA AI system to detect unusual transactions based on the customer's past behavior. If someone makes a large withdrawal in a different city, SBI's AI system will send an instant alert to prevent fraud."
+            },
+            {
+              "title": "ICICI Bank",
+              "content": "Uses AI to track your spending patterns and stop fraud before it happens. If a transaction doesn't match your usual behavior, the system will flag it."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sectionId": "section-2-3",
+      "sectionNumber": 3,
+      "title": "AI in Loan Approvals",
+      "type": "content",
+      "duration": "15 min",
+      "blocks": [
+        {
+          "type": "heading",
+          "content": "Instant Loan Approvals with AI"
+        },
+        {
+          "type": "text",
+          "content": "Banks use AI to analyze a person's financial history, transaction data, and credit score automatically. This is usually faster and more accurate than traditional methods allowing efficiency for the consumers and the bank."
+        },
+        {
+          "type": "heading",
+          "content": "Examples"
+        },
+        {
+          "type": "bullet-list",
+          "items": [
+            {
+              "title": "ICICI Bank",
+              "content": "Uses AI to decide if someone is eligible for a loan. The AI analyzes your financial data, such as spending habits, savings, and even social behaviors, and makes a quick decision on your loan application."
+            },
+            {
+              "title": "HDFC Bank",
+              "content": "Uses AI to approve personal loans within minutes, streamlining the process for customers who need quick access to funds."
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "content": "Why It Matters"
+        },
+        {
+          "type": "text",
+          "content": "AI makes loans more accessible by providing quicker decisions and reducing the human error in loan processing."
+        }
+      ]
+    },
+    {
+      "sectionId": "section-2-4",
+      "sectionNumber": 4,
+      "title": "Future of AI in Banking",
+      "type": "content",
+      "duration": "10 min",
+      "blocks": [
+        {
+          "type": "heading",
+          "content": "What's Next for AI in Banking?"
+        },
+        {
+          "type": "text",
+          "content": "AI will continue evolving, offering even smarter solutions for customers, such as voice-activated banking, personalized financial goals, and fully automated financial advisory services. Banks in India are already starting to experiment with AI-powered virtual branches where all banking tasks can be conducted through an AI interface."
+        },
+        {
+          "type": "heading",
+          "content": "Example"
+        },
+        {
+          "type": "text",
+          "content": "YES Bank is working on integrating more AI and blockchain technologies to streamline financial transactions and improve security in digital banking."
+        }
+      ]
+    }
+  ],
+  "quiz": {
+    "quizId": "quiz-2-1",
+    "type": "multiple-choice",
+    "passingScore": 70,
+    "instructions": "Present a scenario where you need to decide if a transaction looks suspicious",
+    "question": {
+      "prompt": "Your account shows a ₹10,000 transaction in a city you've never visited. What should the AI system do?",
+      "type": "multiple-select",
+      "options": [
+        {
+          "id": "a",
+          "text": "Temporarily block the account",
+          "isCorrect": false
+        },
+        {
+          "id": "b",
+          "text": "Send text message to customer",
+          "isCorrect": true
+        },
+        {
+          "id": "c",
+          "text": "Send phone call to customer",
+          "isCorrect": true
+        },
+        {
+          "id": "d",
+          "text": "Do nothing",
+          "isCorrect": false
+        }
+      ],
+      "explanation": "The best approach is to alert the customer through text message or phone call to verify the transaction before taking blocking action.",
+      "correctAnswers": ["b", "c"]
+    }
+  }
+}

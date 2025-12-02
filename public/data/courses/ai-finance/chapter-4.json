@@ -1,0 +1,131 @@
+{
+  "chapterId": "chapter-4",
+  "chapterNumber": 4,
+  "title": "Data is Money",
+  "description": "Understanding what financial data is, how AI uses it, and why it matters.",
+  "duration": "approx 11 min",
+  "sections": [
+    {
+      "sectionId": "section-4-1",
+      "sectionNumber": 1,
+      "title": "What is Data?",
+      "type": "content",
+      "duration": "3:40",
+      "blocks": [
+        {
+          "type": "heading",
+          "content": "What is Data?"
+        },
+        {
+          "type": "text",
+          "content": "Data refers to information collected from various sources. In finance, this includes spending habits, income, payments, and credit history."
+        },
+        {
+          "type": "heading",
+          "content": "Types of Financial Data"
+        },
+        {
+          "type": "bullet-list",
+          "items": [
+            {
+              "title": "Transactional Data",
+              "content": "Purchases, bills, transfers"
+            },
+            {
+              "title": "Behavioral Data",
+              "content": "Where, when, and how you spend"
+            },
+            {
+              "title": "Personal Data",
+              "content": "Income, age, preferences"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "content": "Why Data Matters to AI"
+        },
+        {
+          "type": "text",
+          "content": "AI depends on data to make predictions, identify trends, and give personalized advice. More data means smarter financial insights."
+        }
+      ]
+    },
+    {
+      "sectionId": "section-4-2",
+      "sectionNumber": 2,
+      "title": "How Your Financial Habits Create Data",
+      "type": "content",
+      "duration": "4:10",
+      "blocks": [
+        {
+          "type": "heading",
+          "content": "Daily Financial Actions"
+        },
+        {
+          "type": "text",
+          "content": "Every financial decision, big or small, generates data. From shopping to paying bills, each action builds your financial profile."
+        },
+        {
+          "type": "heading",
+          "content": "How AI Learns from Your Data"
+        },
+        {
+          "type": "bullet-list",
+          "items": [
+            {
+              "title": "Detects spending patterns",
+              "content": ""
+            },
+            {
+              "title": "Understands saving habits",
+              "content": ""
+            },
+            {
+              "title": "Identifies unusual activity",
+              "content": ""
+            },
+            {
+              "title": "Learns using machine learning",
+              "content": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sectionId": "section-4-3",
+      "sectionNumber": 3,
+      "title": "Benefits of Using AI to Manage Money",
+      "type": "content",
+      "duration": "3:00",
+      "blocks": [
+        {
+          "type": "heading",
+          "content": "Personalized Guidance"
+        },
+        {
+          "type": "text",
+          "content": "AI suggests saving opportunities, budgeting improvements, and investment ideas."
+        },
+        {
+          "type": "heading",
+          "content": "Time Savings"
+        },
+        {
+          "type": "text",
+          "content": "AI automates calculations, budgeting, and analysis to reduce manual work."
+        },
+        {
+          "type": "heading",
+          "content": "Better Financial Health"
+        },
+        {
+          "type": "text",
+          "content": "AI helps prevent overspending and offers real-time financial insights."
+        }
+      ]
+    }
+  ],
+  "quiz": null
+}
