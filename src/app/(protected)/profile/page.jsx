@@ -19,9 +19,9 @@ function Profile() {
   const [courses, setCourses] = useState([]); // ALL courses (all enrolled)
 
   const student = {
-    name: "Rajnish Tripathi",
-    email: "rajnishtripathi2001@gmail.com",
-    joinedDate: "January 2024",
+    name: "Vaibhav Singh",
+    email: "singhvaibhav654@gmail.com",
+    joinedDate: "December 2025",
   };
 
   // ---------------------------------------------
