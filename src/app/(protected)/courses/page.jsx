@@ -1,304 +1,180 @@
 "use client";
+
 import React, { useEffect, useState } from "react";
-import {
-  getAllCourses,
-  getCourseBySlug,
-  getModuleData,
-  getChapterData,
-} from "../../../lib/courseData"; // adjust path as needed
-
-function Loading() {
-  return <div className="p-6 text-gray-500">Loading…</div>;
-}
-
-function ErrorBox({ message }) {
-  return <div className="p-3 bg-red-100 text-red-800 rounded">{message}</div>;
-}
-
-function CourseCard({ course, onOpen }) {
-  return (
-    <div className="border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition p-4 flex flex-col">
-      {course.thumbnail && (
-        <img
-          src={course.thumbnail}
-          alt={course.title}
-          className="h-40 w-full object-cover rounded-md mb-3"
-        />
-      )}
-      <h3 className="text-lg font-semibold">{course.title}</h3>
-      <p className="text-sm text-gray-600">{course.subtitle}</p>
-      <div className="mt-2 text-xs text-gray-500">By {course.instructor}</div>
-
-      <div className="mt-3 flex items-center justify-between">
-        <div className="text-xs text-gray-600">
-          {course.level} • {course.duration}
-        </div>
-        <button
-          onClick={() => onOpen(course.slug)}
-          className="text-sm px-3 py-1 bg-blue-600 text-white rounded"
-        >
-          Open
-        </button>
-      </div>
-
-      {course.tags?.length > 0 && (
-        <div className="mt-2 flex flex-wrap gap-2">
-          {course.tags.map((t) => (
-            <span key={t} className="text-xs bg-gray-100 px-2 py-1 rounded">
-              {t}
-            </span>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-}
+import { useRouter } from "next/navigation";
+import { 
+  BookOpen, 
+  Clock, 
+  ArrowRight, 
+  Sparkles,
+  PlayCircle,
+  GraduationCap
+} from "lucide-react";
+import { getAllCourses } from "@/lib/courseData";
 
 export default function CoursesPage() {
-  const [courses, setCourses] = useState(null);
-  const [error, setError] = useState(null);
-  const [selectedSlug, setSelectedSlug] = useState(null);
-  const [selectedCourse, setSelectedCourse] = useState(null);
-  const [modulesLoaded, setModulesLoaded] = useState({}); // { moduleNumber: moduleData }
-  const [loadingCourse, setLoadingCourse] = useState(false);
-  const [loadingModule, setLoadingModule] = useState(null); // moduleNumber being loaded
+  const router = useRouter();
+  const [courses, setCourses] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    let mounted = true;
     async function load() {
       try {
         const data = await getAllCourses();
-        if (!mounted) return;
         setCourses(data);
       } catch (err) {
-        console.error(err);
-        if (!mounted) return;
-        setError("Failed to load courses.");
+        console.error("Failed to load courses", err);
+      } finally {
+        setLoading(false);
       }
     }
     load();
-    return () => (mounted = false);
   }, []);
 
-  // when a course is selected, fetch course details (modules list)
-  useEffect(() => {
-    if (!selectedSlug) {
-      setSelectedCourse(null);
-      setModulesLoaded({});
-      return;
-    }
-
-    let mounted = true;
-    async function loadCourse() {
-      setLoadingCourse(true);
-      try {
-        const c = await getCourseBySlug(selectedSlug);
-        if (!mounted) return;
-        setSelectedCourse(c);
-      } catch (err) {
-        console.error(err);
-        if (!mounted) return;
-        setError("Failed to load course details.");
-      } finally {
-        if (mounted) setLoadingCourse(false);
-      }
-    }
-    loadCourse();
-    return () => (mounted = false);
-  }, [selectedSlug]);
-
-  async function handleOpenModule(moduleNumber) {
-    if (!selectedCourse) return;
-    // already loaded?
-    if (modulesLoaded[moduleNumber]) {
-      // toggle off if already loaded? Here we just keep it.
-      setModulesLoaded((prev) => ({
-        ...prev,
-        [moduleNumber]: prev[moduleNumber],
-      }));
-      return;
-    }
-
-    try {
-      setLoadingModule(moduleNumber);
-      const data = await getModuleData(selectedCourse.slug, moduleNumber);
-      setModulesLoaded((prev) => ({ ...prev, [moduleNumber]: data }));
-    } catch (err) {
-      console.error(err);
-      setError(`Failed to load module ${moduleNumber}`);
-    } finally {
-      setLoadingModule(null);
-    }
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <div className="w-12 h-12 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
+          <p className="text-slate-500 font-medium">Loading courses...</p>
+        </div>
+      </div>
+    );
   }
-
-  async function handleShowChapterContent(moduleNumber, chapterNumber) {
-    if (!selectedCourse) return;
-    try {
-      // getChapterData uses getModuleData under the hood, but if module is already loaded we can read directly
-      const moduleData =
-        modulesLoaded[moduleNumber] ??
-        (await getModuleData(selectedCourse.slug, moduleNumber));
-      const chapter = moduleData.chapters.find(
-        (ch) => ch.chapterNumber === chapterNumber
-      );
-      // In this demo we will just alert the chapter title and type. Replace this with a modal or route in real app.
-      if (chapter) {
-        // show details
-        alert(
-          `Chapter: ${chapter.title}\nType: ${chapter.type}\nDuration: ${
-            chapter.duration ?? "—"
-          }`
-        );
-      } else {
-        alert("Chapter not found");
-      }
-    } catch (err) {
-      console.error(err);
-      setError("Failed to load chapter.");
-    }
-  }
-
-  if (error) {
-    return <ErrorBox message={error} />;
-  }
-
-  if (!courses) return <Loading />;
 
   return (
-    <div className="p-6 max-w-6xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Courses</h1>
-
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {courses.map((course) => (
-          <CourseCard
-            key={course.id}
-            course={course}
-            onOpen={(slug) => setSelectedSlug(slug)}
-          />
-        ))}
+    <div className="min-h-screen bg-slate-50 font-sans text-slate-900 pb-20">
+      
+      {/* Hero Section */}
+      <div className="bg-indigo-900 text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1620121692029-d088224ddc74?q=80&w=2832&auto=format&fit=crop')] bg-cover bg-center opacity-10"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-indigo-900/90 via-indigo-900/80 to-purple-900/80"></div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10 text-center">
+          <div className="max-w-3xl mx-auto">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-800/50 border border-indigo-700 text-indigo-300 text-xs font-semibold uppercase tracking-wider mb-6">
+              <Sparkles className="w-3 h-3" />
+              World Class Education
+            </div>
+            <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-6 leading-tight">
+              Master the Future of <span className="text-indigo-400">Finance & AI</span>
+            </h1>
+            <p className="text-lg text-indigo-200 mb-8 leading-relaxed">
+              Explore our curated curriculum designed to bridge the gap between traditional banking and cutting-edge technology.
+            </p>
+          </div>
+        </div>
       </div>
 
-      {/* Right / bottom panel: selected course */}
-      <div className="mt-8">
-        {selectedSlug ? (
-          <div className="border rounded-lg p-4 shadow-sm">
-            {loadingCourse || !selectedCourse ? (
-              <Loading />
-            ) : (
-              <>
-                <div className="flex items-start gap-4">
-                  {selectedCourse.thumbnail && (
-                    <img
-                      src={selectedCourse.thumbnail}
-                      alt={selectedCourse.title}
-                      className="w-40 h-28 object-cover rounded"
+      {/* Main Content */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-16 relative z-20">
+        
+        {/* Course Grid */}
+        {courses.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {courses.map((course) => (
+              <div 
+                key={course.id} 
+                className="group flex flex-col bg-white rounded-2xl border border-slate-200 shadow-xl hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 overflow-hidden cursor-pointer h-full"
+                onClick={() => router.push(`/courses/${course.slug}`)}
+              >
+                {/* Advanced Thumbnail Area */}
+                <div className="h-56 bg-slate-200 relative overflow-hidden">
+                  {course.thumbnail ? (
+                    <img 
+                      src={course.thumbnail} 
+                      alt={course.title}
+                      className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
                     />
+                  ) : (
+                    <div className="w-full h-full bg-gradient-to-tr from-indigo-600 to-purple-700 flex flex-col items-center justify-center p-8 text-center">
+                      <BookOpen className="w-16 h-16 text-white/40 mb-3" />
+                      <span className="text-white/40 font-bold uppercase tracking-widest text-sm">Course Preview</span>
+                    </div>
                   )}
-                  <div>
-                    <h2 className="text-xl font-semibold">
-                      {selectedCourse.title}
-                    </h2>
-                    <p className="text-sm text-gray-600">
-                      {selectedCourse.subtitle}
-                    </p>
-                    <div className="mt-1 text-xs text-gray-500">
-                      Modules: {selectedCourse.modules?.length ?? "—"}
+                  
+                  {/* Category Badge */}
+                  <div className="absolute top-4 left-4 z-20">
+                     <span className="bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-indigo-900 shadow-sm flex items-center gap-1.5 uppercase tracking-wide">
+                        <GraduationCap className="w-3.5 h-3.5 text-indigo-600" />
+                        {course.tags?.[0] || "Advanced"}
+                     </span>
+                  </div>
+
+                  {/* Level Badge */}
+                  <div className="absolute top-4 right-4 z-20">
+                    <span className={`
+                        px-2.5 py-1 rounded-md text-xs font-bold uppercase tracking-wide shadow-sm backdrop-blur-md
+                        ${course.level === 'Beginner' ? 'bg-emerald-500/90 text-white' : 
+                          course.level === 'Intermediate' ? 'bg-amber-500/90 text-white' : 
+                          'bg-rose-500/90 text-white'}
+                    `}>
+                        {course.level}
+                    </span>
+                  </div>
+                  
+                  {/* Hover Actions */}
+                  <div className="absolute inset-0 bg-indigo-900/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10 backdrop-blur-[2px]">
+                    <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                        <button className="bg-white text-indigo-900 px-6 py-3 rounded-full font-bold shadow-lg flex items-center gap-2 hover:bg-indigo-50 transition-colors">
+                            <PlayCircle className="w-5 h-5" />
+                            Start Learning Now
+                        </button>
                     </div>
                   </div>
                 </div>
 
-                <hr className="my-4" />
-
-                <div>
-                  <h3 className="font-medium mb-2">Modules</h3>
-
-                  {selectedCourse.modules?.length === 0 && (
-                    <div className="text-sm text-gray-500">
-                      No modules available.
+                {/* Content Area */}
+                <div className="p-7 flex-1 flex flex-col items-start border-t border-slate-100">
+                  
+                  {/* Metadata Row */}
+                  <div className="flex items-center gap-4 mb-4 text-sm text-slate-500 w-full">
+                    <div className="flex items-center gap-1.5 bg-slate-50 px-2.5 py-1 rounded-md">
+                        <Clock className="w-4 h-4 text-indigo-500" />
+                        <span className="font-medium text-slate-700">{course.duration}</span>
                     </div>
-                  )}
-
-                  <div className="space-y-3">
-                    {selectedCourse.modules?.map((mod) => {
-                      const loadedModule = modulesLoaded[mod.moduleNumber];
-                      const isLoading = loadingModule === mod.moduleNumber;
-                      return (
-                        <div
-                          key={mod.moduleId}
-                          className="border rounded p-3 flex flex-col md:flex-row md:items-center md:justify-between"
-                        >
-                          <div>
-                            <div className="font-semibold">
-                              Module {mod.moduleNumber}: {mod.title}
-                            </div>
-                            <div className="text-xs text-gray-600">
-                              {mod.description}
-                            </div>
-                            <div className="text-xs text-gray-500 mt-1">
-                              Chapters:{" "}
-                              {mod.totalChapters ??
-                                loadedModule?.chapters?.length ??
-                                "—"}
-                            </div>
-                          </div>
-
-                          <div className="mt-3 md:mt-0 flex gap-2 items-center">
-                            <button
-                              onClick={() => handleOpenModule(mod.moduleNumber)}
-                              className="px-3 py-1 border rounded text-sm"
-                            >
-                              {loadedModule
-                                ? "Show Chapters"
-                                : isLoading
-                                ? "Loading…"
-                                : "Load Module"}
-                            </button>
-                            {loadedModule && (
-                              <div className="bg-gray-50 p-3 rounded w-full md:w-auto">
-                                <ul className="space-y-1">
-                                  {loadedModule.chapters.map((ch) => (
-                                    <li
-                                      key={ch.chapterId}
-                                      className="flex items-center justify-between gap-4"
-                                    >
-                                      <div>
-                                        <div className="text-sm font-medium">
-                                          {ch.chapterNumber}. {ch.title}
-                                        </div>
-                                        <div className="text-xs text-gray-500">
-                                          {ch.type} • {ch.duration}
-                                        </div>
-                                      </div>
-                                      <div className="ml-4">
-                                        <button
-                                          onClick={() =>
-                                            handleShowChapterContent(
-                                              mod.moduleNumber,
-                                              ch.chapterNumber
-                                            )
-                                          }
-                                          className="px-2 py-1 text-sm border rounded"
-                                        >
-                                          Open
-                                        </button>
-                                      </div>
-                                    </li>
-                                  ))}
-                                </ul>
-                              </div>
-                            )}
-                          </div>
+                    {course.modules && (
+                        <div className="flex items-center gap-1.5 bg-slate-50 px-2.5 py-1 rounded-md">
+                            <BookOpen className="w-4 h-4 text-purple-500" />
+                            <span className="font-medium text-slate-700">{course.modules.length} Modules</span>
                         </div>
-                      );
-                    })}
+                    )}
+                  </div>
+
+                  <h3 className="text-2xl font-bold text-slate-900 mb-3 leading-tight group-hover:text-indigo-700 transition-colors">
+                    {course.title}
+                  </h3>
+                  
+                  <p className="text-slate-600 mb-6 leading-relaxed flex-1">
+                    {course.subtitle || course.description}
+                  </p>
+
+                  <div className="w-full pt-5 border-t border-slate-100 flex items-center justify-between mt-auto">
+                    <div className="flex items-center gap-3">
+                       <div className="w-9 h-9 rounded-full bg-gradient-to-br from-indigo-100 to-white border border-indigo-100 flex items-center justify-center text-sm font-bold text-indigo-700 shadow-sm">
+                          {course.instructor.split(' ')[0][0]}
+                       </div>
+                       <div className="flex flex-col">
+                           <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Instructor</span>
+                           <span className="text-sm font-bold text-slate-800">{course.instructor}</span>
+                       </div>
+                    </div>
+                    
+                    <span className="text-indigo-600 bg-indigo-50 p-2 rounded-full group-hover:bg-indigo-600 group-hover:text-white transition-all duration-300">
+                        <ArrowRight className="w-5 h-5 transform -rotate-45 group-hover:rotate-0 transition-transform duration-300" />
+                    </span>
                   </div>
                 </div>
-              </>
-            )}
+              </div>
+            ))}
           </div>
         ) : (
-          <div className="text-sm text-gray-500">
-            Click a course "Open" button to view its modules.
+          <div className="text-center py-20 bg-white rounded-3xl border border-dashed border-slate-300">
+            <div className="w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-4 text-slate-400">
+              <BookOpen className="w-8 h-8" />
+            </div>
+            <h3 className="text-lg font-bold text-slate-900">No courses available yet</h3>
+            <p className="text-slate-500">Check back soon for new content.</p>
           </div>
         )}
       </div>
