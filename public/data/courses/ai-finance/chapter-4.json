@@ -3,14 +3,12 @@
   "chapterNumber": 4,
   "title": "Data is Money",
   "description": "Understanding what financial data is, how AI uses it, and why it matters.",
-  "duration": "approx 11 min",
   "sections": [
     {
       "sectionId": "section-4-1",
       "sectionNumber": 1,
       "title": "What is Data?",
       "type": "content",
-      "duration": "3:40",
       "blocks": [
         {
           "type": "heading",
@@ -18,7 +16,7 @@
         },
         {
           "type": "text",
-          "content": "Data refers to information collected from various sources. In finance, this includes spending habits, income, payments, and credit history."
+          "content": "Data refers to information collected from various sources. In finance, data includes how much money you spend, how much you save, your income, and even your credit score."
         },
         {
           "type": "heading",
@@ -29,25 +27,33 @@
           "items": [
             {
               "title": "Transactional Data",
-              "content": "Purchases, bills, transfers"
+              "content": "Information about daily transactions such as purchases and payments."
             },
             {
               "title": "Behavioral Data",
-              "content": "Where, when, and how you spend"
+              "content": "How often and where you spend money, along with patterns in your financial habits."
             },
             {
               "title": "Personal Data",
-              "content": "Income, age, preferences"
+              "content": "Information such as income, age, financial preferences, and goals."
             }
           ]
         },
         {
           "type": "heading",
-          "content": "Why Data Matters to AI"
+          "content": "Why is Data Important to AI?"
         },
         {
           "type": "text",
-          "content": "AI depends on data to make predictions, identify trends, and give personalized advice. More data means smarter financial insights."
+          "content": "AI needs data to make predictions, identify trends, and offer accurate and personalized suggestions. Without data, AI cannot learn from past behavior or make informed decisions."
+        },
+        {
+          "type": "heading",
+          "content": "Example"
+        },
+        {
+          "type": "text",
+          "content": "Apps like PhonePe and Google Pay analyze user spending data to offer insights, suggestions, and personalized offers. They make financial tasks smoother and more efficient using this data."
         }
       ]
     },
@@ -56,38 +62,37 @@
       "sectionNumber": 2,
       "title": "How Your Financial Habits Create Data",
       "type": "content",
-      "duration": "4:10",
       "blocks": [
         {
           "type": "heading",
-          "content": "Daily Financial Actions"
+          "content": "Your Financial Data Habits"
         },
         {
           "type": "text",
-          "content": "Every financial decision, big or small, generates data. From shopping to paying bills, each action builds your financial profile."
+          "content": "Every financial decision generates data from daily spending on food or transport to savings or investments. Your habits and timing create patterns that AI can analyze."
         },
         {
           "type": "heading",
-          "content": "How AI Learns from Your Data"
+          "content": "How AI Learns from Your Financial Data"
         },
         {
           "type": "bullet-list",
           "items": [
             {
-              "title": "Detects spending patterns",
-              "content": ""
+              "title": "Learns spending patterns",
+              "content": "Such as how much you spend on eating out versus groceries."
             },
             {
-              "title": "Understands saving habits",
-              "content": ""
+              "title": "Understands saving behavior",
+              "content": "Like how often and how much you save."
             },
             {
-              "title": "Identifies unusual activity",
-              "content": ""
+              "title": "Identifies weak areas",
+              "content": "Such as overspending or opportunities to reduce costs."
             },
             {
-              "title": "Learns using machine learning",
-              "content": ""
+              "title": "Learns over time",
+              "content": "The more data it analyzes, the smarter and more personalized its advice becomes."
             }
           ]
         }
@@ -96,17 +101,16 @@
     {
       "sectionId": "section-4-3",
       "sectionNumber": 3,
-      "title": "Benefits of Using AI to Manage Money",
+      "title": "Benefits of Using AI to Manage Your Money",
       "type": "content",
-      "duration": "3:00",
       "blocks": [
         {
           "type": "heading",
-          "content": "Personalized Guidance"
+          "content": "Personalized Financial Guidance"
         },
         {
           "type": "text",
-          "content": "AI suggests saving opportunities, budgeting improvements, and investment ideas."
+          "content": "AI offers tailored advice based on your financial data, such as saving suggestions or investment opportunities aligned with your goals."
         },
         {
           "type": "heading",
@@ -114,18 +118,17 @@
         },
         {
           "type": "text",
-          "content": "AI automates calculations, budgeting, and analysis to reduce manual work."
+          "content": "AI automates budgeting, tracking, and analysis. It saves time by keeping your financial goals and expenses organized."
         },
         {
           "type": "heading",
-          "content": "Better Financial Health"
+          "content": "Improved Financial Health"
         },
         {
           "type": "text",
-          "content": "AI helps prevent overspending and offers real-time financial insights."
+          "content": "With real-time alerts and insights based on your data, AI helps you make smarter decisions that improve your overall financial health."
         }
       ]
     }
-  ],
-  "quiz": null
+  ]
 }

@@ -3,14 +3,12 @@
   "chapterNumber": 6,
   "title": "Ethics in AI",
   "description": "Understanding fairness, bias, privacy, and ethical challenges of AI in finance.",
-  "duration": "approx 15:50",
   "sections": [
     {
       "sectionId": "section-6-1",
       "sectionNumber": 1,
-      "title": "What is Ethics in AI?",
+      "title": "Understanding Ethics in AI",
       "type": "content",
-      "duration": "3:20",
       "blocks": [
         {
           "type": "heading",
@@ -18,128 +16,137 @@
         },
         {
           "type": "text",
-          "content": "Ethics refers to principles ensuring fairness, transparency, and privacy in AI systems."
+          "content": "Ethics refers to the moral principles that govern a person’s or group's behavior. In the context of AI, it means ensuring that AI systems are designed and used in a way that is fair, transparent, and most importantly respectful of privacy."
         },
         {
           "type": "heading",
-          "content": "Why Ethics Matter"
+          "content": "Why Ethics Matter in AI"
         },
         {
           "type": "text",
-          "content": "AI influences critical financial decisions like loans and fraud detection, so fairness is essential."
+          "content": "As AI systems are used in important financial decisions, such as loan approvals or fraud detection, it is crucial that these systems are ethical to avoid harm, unfairness, or discrimination."
+        },
+        {
+          "type": "heading",
+          "content": "Key Ethical Questions"
+        },
+        {
+          "type": "bullet-list",
+          "items": [
+            { "title": "Are AI decisions fair?", "content": "" },
+            { "title": "How do we ensure privacy?", "content": "" },
+            { "title": "Can AI be transparent in its decision-making?", "content": "" }
+          ]
         }
       ]
     },
     {
       "sectionId": "section-6-2",
       "sectionNumber": 2,
-      "title": "Bias in AI",
+      "title": "What is Bias in AI?",
       "type": "content",
-      "duration": "4:00",
       "blocks": [
         {
           "type": "heading",
-          "content": "What is Bias?"
+          "content": "Definition of Bias"
         },
         {
           "type": "text",
-          "content": "Bias occurs when AI produces unfair results due to flawed or imbalanced data."
+          "content": "Bias is a prejudice in favor of or against one thing, person, or group compared with another, usually in a way considered to be unfair. Bias in AI occurs when an AI system makes unfair or skewed decisions because it was trained on biased data."
         },
         {
           "type": "heading",
-          "content": "Types of Bias"
+          "content": "How Bias Happens"
         },
         {
           "type": "bullet-list",
           "items": [
             {
               "title": "Data Bias",
-              "content": ""
+              "content": "AI systems learn from data, and if the training data has flaws or is not diverse, the AI can make biased decisions."
             },
             {
               "title": "Algorithmic Bias",
-              "content": ""
+              "content": "Even if data is balanced, the algorithm itself may be designed in a way that leads to biased results."
             }
           ]
+        },
+        {
+          "type": "heading",
+          "content": "Example"
+        },
+        {
+          "type": "text",
+          "content": "Loan Approvals: If AI systems are trained using historical data from a bank that has approved loans more frequently for men than women, the AI may continue this biased pattern."
         }
       ]
     },
     {
       "sectionId": "section-6-3",
       "sectionNumber": 3,
-      "title": "Privacy Concerns",
+      "title": "Privacy Concerns with AI in Finance",
       "type": "content",
-      "duration": "3:50",
       "blocks": [
         {
           "type": "heading",
-          "content": "What is Privacy?"
+          "content": "What is Privacy in AI?"
         },
         {
           "type": "text",
-          "content": "Privacy concerns how personal data is collected, stored, and used in AI systems."
+          "content": "Privacy in AI refers to how personal data is collected, stored, and used. Since AI often requires personal information such as spending habits and transaction history, it's important that this data is handled responsibly and safely."
         },
         {
           "type": "heading",
-          "content": "Why It Matters"
+          "content": "Why Privacy Matters"
         },
         {
           "type": "bullet-list",
           "items": [
-            {
-              "title": "Protects people from data misuse",
-              "content": ""
-            },
-            {
-              "title": "Prevents identity theft",
-              "content": ""
-            },
-            {
-              "title": "Builds trust in financial systems",
-              "content": ""
-            }
+            { "title": "If personal financial data is not protected, it can be misused for identity theft, fraud, or other malicious activities.", "content": "" },
+            { "title": "Lack of privacy protection can violate user rights and trust.", "content": "" }
           ]
+        },
+        {
+          "type": "heading",
+          "content": "Example"
+        },
+        {
+          "type": "text",
+          "content": "Aadhaar Data and Privacy: In India, Aadhaar collects personal data for identification purposes. There have been concerns about how this data is stored and used by private companies and government agencies, raising important privacy questions."
         }
       ]
     },
     {
       "sectionId": "section-6-4",
       "sectionNumber": 4,
-      "title": "Ethical Challenges & Regulations",
+      "title": "Real-World Challenges and Ethical AI in Finance",
       "type": "content",
-      "duration": "4:30",
       "blocks": [
         {
           "type": "heading",
-          "content": "How to Build Ethical AI"
-        },
-        {
-          "type": "bullet-list",
-          "items": [
-            {
-              "title": "Use unbiased data",
-              "content": ""
-            },
-            {
-              "title": "Ensure transparency",
-              "content": ""
-            },
-            {
-              "title": "Protect user privacy",
-              "content": ""
-            }
-          ]
-        },
-        {
-          "type": "heading",
-          "content": "Regulation Example"
+          "content": "How Can AI Be Ethical?"
         },
         {
           "type": "text",
-          "content": "SEBI works on guidelines ensuring fair and transparent AI usage in the financial sector."
+          "content": "Ethical AI design includes creating systems that prioritize fairness, privacy, and transparency. Financial institutions must ensure their AI systems are designed using unbiased data and that users can understand and trust AI decisions."
+        },
+        {
+          "type": "heading",
+          "content": "Regulating AI for Fairness"
+        },
+        {
+          "type": "text",
+          "content": "Government regulations and industry standards ensure AI is used responsibly. In countries like India, regulations are being developed for sectors such as finance as AI’s impact continues to grow."
+        },
+        {
+          "type": "heading",
+          "content": "Example"
+        },
+        {
+          "type": "text",
+          "content": "SEBI (Securities and Exchange Board of India) is working on regulations for AI and fintech companies to ensure that algorithms used in trading, investing, and financial decision-making are fair and ethical."
         }
       ]
     }
-  ],
-  "quiz": null
+  ]
 }

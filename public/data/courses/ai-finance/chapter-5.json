@@ -3,14 +3,12 @@
   "chapterNumber": 5,
   "title": "AI for Personal Finance",
   "description": "How AI improves budgeting, credit scores, bills, savings, and financial planning.",
-  "duration": "approx 19 min",
   "sections": [
     {
       "sectionId": "section-5-1",
       "sectionNumber": 1,
       "title": "Introduction to Personal Finance & AI",
       "type": "content",
-      "duration": "3:25",
       "blocks": [
         {
           "type": "heading",
@@ -18,7 +16,15 @@
         },
         {
           "type": "text",
-          "content": "Personal finance includes budgeting, saving, investing, and managing money."
+          "content": "Personal finance involves managing your own money — everything from budgeting and saving to investing and spending."
+        },
+        {
+          "type": "heading",
+          "content": "Why Personal Finance Matters"
+        },
+        {
+          "type": "text",
+          "content": "Proper personal finance management helps you stay financially stable, avoid debt, save for future goals, and make smarter decisions about spending and investing."
         },
         {
           "type": "heading",
@@ -26,17 +32,32 @@
         },
         {
           "type": "text",
-          "content": "AI analyzes spending and provides insights to help people manage money more effectively."
+          "content": "AI helps people manage their personal finances more effectively by offering automated advice, tracking expenses, and helping users stay within budget."
+        },
+        {
+          "type": "heading",
+          "content": "Example"
+        },
+        {
+          "type": "text",
+          "content": "Apps like ClearTax use AI to help individuals with tax filing — recommending deductions and simplifying the process based on user data."
         }
       ]
     },
     {
       "sectionId": "section-5-2",
       "sectionNumber": 2,
-      "title": "AI in Budgeting Apps",
+      "title": "Benefits of Using AI to Manage Your Money",
       "type": "content",
-      "duration": "4:00",
       "blocks": [
+        {
+          "type": "heading",
+          "content": "What are Budgeting Apps?"
+        },
+        {
+          "type": "text",
+          "content": "Budgeting apps help you track your income and expenses automatically, using AI to categorize and analyze your financial habits. These apps help you plan where your money goes and how much to save."
+        },
         {
           "type": "heading",
           "content": "How Budgeting Apps Use AI"
@@ -46,80 +67,123 @@
           "items": [
             {
               "title": "Automatic expense categorization",
-              "content": ""
+              "content": "AI automatically classifies each transaction (e.g., food, entertainment, bills) so you know where your money goes."
             },
             {
               "title": "Spending predictions",
-              "content": ""
+              "content": "Based on past behavior, AI forecasts future expenses to help you plan ahead."
             },
             {
               "title": "Overspending alerts",
-              "content": ""
+              "content": "If you’re close to exceeding budget limits, AI sends alerts to warn you."
             },
             {
               "title": "Budget planning suggestions",
-              "content": ""
+              "content": "AI offers personalized budgeting plans based on your income and spending habits."
             }
           ]
+        },
+        {
+          "type": "heading",
+          "content": "Example"
+        },
+        {
+          "type": "text",
+          "content": "Apps like Walnut use AI to track spending, categorize transactions, detect patterns, and suggest ways to save money."
         }
       ]
     },
     {
       "sectionId": "section-5-3",
       "sectionNumber": 3,
-      "title": "AI Helps Track Credit Scores",
+      "title": "AI Helps Track and Improve Credit Scores",
       "type": "content",
-      "duration": "4:15",
       "blocks": [
         {
           "type": "heading",
-          "content": "Credit Score Definition"
+          "content": "What is a Credit Score?"
         },
         {
           "type": "text",
-          "content": "A credit score shows how creditworthy you are and affects loan approvals."
+          "content": "A credit score represents how creditworthy you are — and it affects eligibility for loans or credit cards, and interest rates."
+        },
+        {
+          "type":"text",
+          "content": "There are a multitude of factors that contribute to a credit score"
+        },
+        {
+          "type":"bullet-list",
+          "items":[
+            {
+              "title":"New credit",
+              "content":""
+            },
+            {
+              "title":"Length of credit history",
+              "content":""
+            },
+            {
+              "title":"Payment history",
+              "content":""
+            },
+            {
+              "title":"Credit mix",
+              "content":""
+            },
+            {
+              "title":"Amounts owed",
+              "content":""
+            }
+          ]
         },
         {
           "type": "heading",
-          "content": "AI Helps Improve Score"
+          "content": "How AI Works with Credit Scores And Helps Improve It"
         },
         {
           "type": "bullet-list",
           "items": [
             {
               "title": "Monitoring credit usage",
-              "content": ""
+              "content": "AI tracks how much of your credit limit you use and warns if usage is too high."
             },
             {
               "title": "Highlighting score-impacting factors",
-              "content": ""
+              "content": "AI points out behaviours that affect your score — like frequent late payments or high outstanding debts."
             },
             {
               "title": "Bill payment alerts",
-              "content": ""
+              "content": "AI reminds you to pay bills on time to avoid negative impact on your score."
             },
             {
               "title": "Debt repayment suggestions",
-              "content": ""
+              "content": "AI recommends strategies to repay debt efficiently and improve credit health."
             }
           ]
+        },
+        {
+          "type": "heading",
+          "content": "Example"
+        },
+        {
+          "type": "text",
+          "content": "Apps like CRED use AI to show credit-usage patterns, send timely reminders, and help users maintain or improve their credit scores."
         }
       ]
     },
     {
       "sectionId": "section-5-4",
       "sectionNumber": 4,
-      "title": "AI for Bill Payments",
+      "title": "BILL REMINDERS AND PAYMENTS WITH AI",
       "type": "content",
-      "duration": "3:30",
       "blocks": [
         {
           "type": "heading",
-          "content": "Bill Tracking"
+          "content": "Bill Tracking & Reminders"
         },
         {
           "type": "text",
-          "content": "AI keeps track of bills and ensures payments are made on time."
+          "content": "AI helps keep track of bills and recurring payments and ensures you pay on time."
         },
         {
           "type": "heading",
@@ -130,15 +194,15 @@
           "items": [
             {
               "title": "Avoiding late fees",
-              "content": ""
+              "content": "AI reminds you before bill due dates so you don’t miss payments."
             },
             {
               "title": "Managing recurring payments",
-              "content": ""
+              "content": "AI tracks subscriptions and recurring bills so you always know what’s upcoming."
             },
             {
-              "title": "Tracking subscriptions",
-              "content": ""
+              "title": "Better financial planning",
+              "content": "Helps ensure you have enough money set aside for regular payments."
             }
           ]
         }
@@ -147,9 +211,8 @@
     {
       "sectionId": "section-5-5",
       "sectionNumber": 5,
-      "title": "AI Suggests Savings & Loan Options",
+      "title": "HOW AI SUGGESTS SAVING GOALS AND LOAN OPTIONS",
       "type": "content",
-      "duration": "4:00",
       "blocks": [
         {
           "type": "heading",
@@ -157,7 +220,7 @@
         },
         {
           "type": "text",
-          "content": "AI recommends how much to save based on income and spending patterns."
+          "content": "AI analyzes your income and spending patterns to recommend how much you should save regularly to meet future goals."
         },
         {
           "type": "heading",
@@ -165,10 +228,9 @@
         },
         {
           "type": "text",
-          "content": "AI suggests suitable loans and financial products with the best interest rates."
+          "content": "Based on your financial profile, AI suggests suitable loans or investment products (like mutual funds or savings plans) with competitive interest rates or returns."
         }
       ]
     }
-  ],
-  "quiz": null
+  ]
 }

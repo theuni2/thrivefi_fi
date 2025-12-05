@@ -34,9 +34,14 @@ export async function getChapterData(courseSlug, chapterNumber) {
 }
 
 // Fetch chapter content JSON file if needed
-export async function getChapterContent(chapter) {
+export async function getChapterContent(chapter, courseSlug) {
   if (!chapter?.content) return null;
-  const response = await fetch(`/data/courses/${chapter.content}`);
+  
+  const url = courseSlug 
+    ? `/data/courses/${courseSlug}/${chapter.content}` 
+    : `/data/courses/${chapter.content}`;
+    
+  const response = await fetch(url);
   const data = await response.json();
   return data;
 }

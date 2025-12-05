@@ -1,40 +1,59 @@
 {
-  "moduleId": "module-7",
-  "moduleNumber": 7,
+  "chapterId": "chapter-7",
+  "chapterNumber": 7,
   "title": "The Future of AI in Finance",
   "description": "Exploring AI advisors, blockchain, crypto, and future careers in finance.",
-  "chapters": [
+  "sections": [
     {
-      "chapterId": "chapter-7-1",
-      "chapterNumber": 1,
+      "sectionId": "section-7-1",
+      "sectionNumber": 1,
       "title": "AI-Powered Customer Advisors",
       "type": "content",
-      "duration": "4:00",
       "blocks": [
         {
           "type": "heading",
-          "content": "What Are AI Advisors?"
+          "content": "What are AI Customer Advisors?"
         },
         {
           "type": "text",
-          "content": "AI customer advisors provide 24/7 personalized financial advice using your spending and behavioral data."
+          "content": "AI customer advisors are virtual assistants that use AI to offer personalized financial advice. They can help you choose investments, plan your budget, and give tailored advice about your financial goals. Many AI companies are working on developing a viable model of this. Nothing major has been released yet."
         },
         {
           "type": "heading",
-          "content": "How They Work"
+          "content": "How AI Advisors Work"
         },
         {
           "type": "text",
-          "content": "They analyze transactions, goals, and risk levels to guide users on budgeting and investments."
+          "content": "AI-powered advisors analyze your spending habits, investment goals, and risk tolerance to suggest the best financial moves."
+        },
+        {
+          "type": "heading",
+          "content": "Why AI Advisors Matter"
+        },
+        {
+          "type": "bullet-list",
+          "items": [
+            { "title": "They provide 24/7 access to financial advice.", "content": "" },
+            { "title": "Cost-effective compared to traditional human advisors.", "content": "" },
+            { "title": "Advice based on data-driven insights rather than gut feeling.", "content": "" }
+          ]
+        },
+        {
+          "type": "heading",
+          "content": "Example"
+        },
+        {
+          "type": "text",
+          "content": "HDFC’s EVA (Electronic Virtual Assistant): An AI-powered chatbot that helps customers with banking queries, offers financial advice, and can suggest banking products based on customer needs."
         }
       ]
     },
+
     {
-      "chapterId": "chapter-7-2",
-      "chapterNumber": 2,
-      "title": "Blockchain & Cryptocurrencies",
+      "sectionId": "section-7-2",
+      "sectionNumber": 2,
+      "title": "Blockchain and Cryptocurrencies",
       "type": "content",
-      "duration": "4:20",
       "blocks": [
         {
           "type": "heading",
@@ -42,7 +61,7 @@
         },
         {
           "type": "text",
-          "content": "A digital currency not controlled by any central authority. Examples: Bitcoin, Ethereum, Solana."
+          "content": "Digital currency designed to work through a computer network and not be dependent on a central authority. Rather than the value of cryptos fluctuating because of the performance of a company, it depends on supply and demand, utility, and market sentiment. Examples: Bitcoin, Dogecoin, Ethereum, Solana."
         },
         {
           "type": "heading",
@@ -50,72 +69,97 @@
         },
         {
           "type": "text",
-          "content": "A decentralized ledger that records secure and transparent transactions."
+          "content": "Blockchain is a decentralized, digital ledger that records transactions across multiple computers. It is the technology behind cryptocurrencies like Bitcoin and Ethereum."
         },
         {
           "type": "heading",
           "content": "AI in Blockchain"
         },
         {
-          "type": "bullet-list",
-          "items": [
-            {
-              "title": "Fraud detection",
-              "content": ""
-            },
-            {
-              "title": "Faster transaction validation",
-              "content": ""
-            },
-            {
-              "title": "Security improvements",
-              "content": ""
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "chapterId": "chapter-7-3",
-      "chapterNumber": 3,
-      "title": "Careers in AI & Finance",
-      "type": "content",
-      "duration": "3:40",
-      "blocks": [
-        {
-          "type": "heading",
-          "content": "Career Paths"
-        },
-        {
-          "type": "bullet-list",
-          "items": [
-            {
-              "title": "Fintech Developer",
-              "content": ""
-            },
-            {
-              "title": "Data Analyst",
-              "content": ""
-            },
-            {
-              "title": "AI Ethics Expert",
-              "content": ""
-            },
-            {
-              "title": "Quantitative Analyst",
-              "content": ""
-            }
-          ]
+          "type": "text",
+          "content": "AI is helping secure blockchain networks by detecting fraudulent activities and ensuring transactions are legitimate. AI analyzes transaction data in real-time to spot irregularities humans might miss."
         },
         {
           "type": "heading",
-          "content": "Skills Needed"
+          "content": "Example"
         },
         {
           "type": "text",
-          "content": "Understanding AI, data science, coding, and financial literacy prepares students for future roles."
+          "content": "ZebPay: An Indian cryptocurrency exchange platform that uses AI and blockchain to secure transactions and make cryptocurrency trading safer."
+        },
+        {
+          "type": "heading",
+          "content": "Benefits of AI in Blockchain"
+        },
+        {
+          "type": "text",
+          "content": "AI helps make blockchain systems more secure by spotting and preventing fraud."
+        }
+      ]
+    },
+
+    {
+      "sectionId": "section-7-3",
+      "sectionNumber": 3,
+      "title": "Emerging Careers in AI and Finance",
+      "type": "content",
+      "blocks": [
+        {
+          "type": "heading",
+          "content": "Possible Careers in AI and Finance"
+        },
+        {
+          "type": "bullet-list",
+          "items": [
+            { "title": "Fintech Developer", "content": "Builds technology and apps that integrate AI into financial services." },
+            { "title": "Data Analyst", "content": "Analyzes transaction patterns or investment trends to help companies make decisions." },
+            { "title": "AI Ethics Expert", "content": "Ensures AI systems in finance are fair, transparent, and free from bias." },
+            { "title": "Quantitative Analyst", "content": "Designs and applies mathematical models to price assets like derivatives, stocks, and bonds." }
+          ]
+        },
+        {
+          "type": "heading",
+          "content": "How AI is Creating New Jobs"
+        },
+        {
+          "type": "text",
+          "content": "As AI becomes more embedded in finance, new jobs are emerging that require both technical skills (coding, machine learning) and finance knowledge (markets, regulations)."
+        }
+      ]
+    },
+
+    {
+      "sectionId": "section-7-4",
+      "sectionNumber": 4,
+      "title": "How You Can Stay Ahead",
+      "type": "content",
+      "blocks": [
+        {
+          "type": "heading",
+          "content": "Learn the Basics of AI and Finance"
+        },
+        {
+          "type": "text",
+          "content": "Students should learn basic concepts of AI (machine learning, data analysis, algorithms) and finance (investments, credit, budgeting). Free resources like courses, workshops, and websites can help develop these skills."
+        },
+        {
+          "type": "heading",
+          "content": "Prepare for the Future"
+        },
+        {
+          "type": "text",
+          "content": "Students can stay ahead by learning coding, data science, and financial literacy—skills valuable for careers in AI-powered finance."
+        },
+        {
+          "type": "heading",
+          "content": "Example"
+        },
+        {
+          "type": "text",
+          "content": "UpGrad and Coursera: Platforms offering AI, data science, and finance courses to help students enter the growing field of AI in finance."
         }
       ]
     }
-  ]
+  ],
+  "quiz": null
 }

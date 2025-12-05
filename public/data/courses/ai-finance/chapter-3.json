@@ -3,22 +3,29 @@
   "chapterNumber": 3,
   "title": "AI IN INVESTMENTS AND TRADING",
   "description": "Learn how AI is applied in investments, robo-advisors, and algorithmic trading to make smarter financial decisions.",
-  "duration": "approx 70 min",
   "sections": [
     {
       "sectionId": "section-3-1",
       "sectionNumber": 1,
       "title": "Introduction to Investing",
       "type": "content",
-      "duration": "20 min",
       "blocks": [
         {
           "type": "heading",
           "content": "Investing Basics"
         },
         {
-          "type": "text",
-          "content": "Investing means putting money into assets like stocks, bonds, or mutual funds with the goal of growing your money over time. The key principle is that risk and return are connected—higher risks can lead to higher returns but also greater losses."
+          "type": "bullet-list",
+          "items": [
+            {
+              "title": "Definition",
+              "content": "Investing means putting money into assets like stocks, bonds, or mutual funds with the goal of growing your money over time."
+            },
+            {
+              "title": "Risk & Return",
+              "content": "The key principle is that risk and return are connected—higher risks can lead to higher returns but also greater losses."
+            }
+          ]
         },
         {
           "type": "heading",
@@ -29,11 +36,11 @@
           "items": [
             {
               "title": "Stocks",
-              "content": "Individual stakes in a company that can be bought by the public. The company's performance reflects on the value of the stock."
+              "content": "Stocks are individual stakes in a company that anyone can buy. A company’s performance influences the value of its stock."
             },
             {
               "title": "Mutual Funds",
-              "content": "Pool money from many investors to invest in a diversified set of stocks, bonds, or other assets. The benefit is reduced risk because your money is spread across many investments."
+              "content": "Mutual Funds pool money from many investors to invest in a diversified set of stocks, bonds, or other assets, reducing risk through diversification."
             }
           ]
         },
@@ -43,7 +50,7 @@
         },
         {
           "type": "text",
-          "content": "In India, platforms like Zerodha or Groww allow people to invest in stocks or mutual funds easily through their apps."
+          "content": "In India, platforms like Zerodha or Groww allow people to invest in stocks or mutual funds without needing to understand complex financial concepts."
         }
       ]
     },
@@ -52,19 +59,27 @@
       "sectionNumber": 2,
       "title": "Robo-Advisors and AI",
       "type": "content",
-      "duration": "25 min",
       "blocks": [
         {
           "type": "heading",
           "content": "What is a Robo-Advisor?"
         },
         {
-          "type": "text",
-          "content": "A robo-advisor is an AI-driven tool that provides personalized investment advice based on an individual's financial situation, goals, and risk tolerance. They can often manage an entire portfolio. They are used in personal investment and by professional day traders and investment bankers."
-        },
-        {
-          "type": "text",
-          "content": "AI Role: The AI looks at data such as age, income, financial goals, risk tolerance, and uses algorithms to suggest an investment portfolio that is most likely to meet those goals."
+          "type": "bullet-list",
+          "items": [
+            {
+              "title": "Definition",
+              "content": "A robo-advisor is an AI-driven tool that provides personalized investment advice based on an individual’s financial situation, goals, and risk tolerance."
+            },
+            {
+              "title": "Portfolio Management",
+              "content": "Robo-advisors can manage entire investment portfolios and are used by regular investors as well as professional traders."
+            },
+            {
+              "title": "AI Role",
+              "content": "AI analyzes user data such as age, income, financial goals, and risk tolerance to recommend a suitable investment portfolio."
+            }
+          ]
         },
         {
           "type": "heading",
@@ -72,7 +87,7 @@
         },
         {
           "type": "text",
-          "content": "The user fills out a questionnaire to describe their investment goals (e.g., retirement, buying a home) and their risk tolerance (conservative, moderate, or aggressive). Based on this, the robo-advisors can recommend a diversified range of stocks, ETFs, bonds, and savings accounts to invest in."
+          "content": "Users complete a questionnaire outlining their goals (e.g., retirement, buying a home) and risk level (conservative, moderate, aggressive). Based on this, robo-advisors recommend a diversified mix of stocks, ETFs, bonds, and savings products."
         },
         {
           "type": "heading",
@@ -80,7 +95,7 @@
         },
         {
           "type": "text",
-          "content": "Groww and SIP Calculator by Kuvera use AI to create personalized investment portfolios."
+          "content": "Groww and SIP Calculator by Kuvera use AI to create personalized investment portfolios. They recommend low-risk options for conservative investors and high-return options for aggressive investors."
         }
       ]
     },
@@ -89,7 +104,6 @@
       "sectionNumber": 3,
       "title": "Algorithms and Trading Bots",
       "type": "content",
-      "duration": "15 min",
       "blocks": [
         {
           "type": "heading",
@@ -97,7 +111,7 @@
         },
         {
           "type": "text",
-          "content": "Trading algorithms use AI to make decisions on buying and selling investments. They use historical data, real-time market conditions, and complex models to predict the best times to trade."
+          "content": "Trading algorithms use AI to make decisions on buying and selling investments. They analyze historical data, real-time market conditions, and predictive models to determine the best times to trade."
         },
         {
           "type": "heading",
@@ -105,7 +119,7 @@
         },
         {
           "type": "text",
-          "content": "Trading bots are programs that automatically execute trades based on the strategies set by the user. They can make decisions in milliseconds, helping traders take advantage of small price movements."
+          "content": "Trading bots automatically execute trades based on predefined strategies. They can make decisions in milliseconds, allowing traders to capitalize on small price movements."
         },
         {
           "type": "heading",
@@ -113,76 +127,9 @@
         },
         {
           "type": "text",
-          "content": "Platforms like Upstox and Zerodha offer tools for algorithmic trading, enabling traders to use AI to make faster, data-driven trading decisions."
+          "content": "Platforms like Upstox and Zerodha offer tools for algorithmic trading, enabling traders to automate and speed up their trading strategies using AI."
         }
       ]
     }
-  ],
-  "quiz": {
-    "quizId": "quiz-3-2",
-    "type": "matching",
-    "passingScore": 75,
-    "instructions": "Act as a robo-advisor and match each client with the appropriate portfolio type",
-    "question": {
-      "prompt": "Match each client to the most appropriate portfolio based on their profile:",
-      "type": "client-portfolio-matching",
-      "clients": [
-        {
-          "id": "jordan",
-          "name": "Jordan",
-          "age": 27,
-          "goal": "Long-term wealth building",
-          "timeHorizon": "30 years",
-          "riskTolerance": "High"
-        },
-        {
-          "id": "priya",
-          "name": "Priya",
-          "age": 62,
-          "goal": "Retirement income starting in 3 years",
-          "timeHorizon": "3 years",
-          "riskTolerance": "Low"
-        },
-        {
-          "id": "luis",
-          "name": "Luis",
-          "age": 40,
-          "goal": "Saving for child's college in 8 years",
-          "timeHorizon": "8 years",
-          "riskTolerance": "Medium"
-        },
-        {
-          "id": "maya",
-          "name": "Maya",
-          "age": 50,
-          "goal": "Early retirement in 10 years",
-          "timeHorizon": "10 years",
-          "riskTolerance": "Medium"
-        }
-      ],
-      "portfolios": [
-        {
-          "id": "conservative",
-          "type": "Conservative",
-          "allocation": "80% bonds / 20% stocks"
-        },
-        {
-          "id": "moderate",
-          "type": "Moderate",
-          "allocation": "50% bonds / 50% stocks"
-        },
-        {
-          "id": "aggressive",
-          "type": "Aggressive",
-          "allocation": "20% bonds / 80% stocks"
-        }
-      ],
-      "correctMatches": {
-        "jordan": "aggressive",
-        "priya": "conservative",
-        "luis": "moderate",
-        "maya": "moderate"
-      }
-    }
-  }
+  ]
 }
