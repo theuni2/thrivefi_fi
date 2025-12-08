@@ -112,6 +112,7 @@ const Section = ({ section }) => (
 export default function Course() {
   const { slug } = useParams();
   
+  // ... inside Course component
   const [course, setCourse] = useState(null);
   const [loadingCourse, setLoadingCourse] = useState(true);
   
@@ -121,17 +122,29 @@ export default function Course() {
   
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  // 1. Fetch Course Info (List of chapters)
+  const [enrollment, setEnrollment] = useState(null);
+  
+  // 1. Fetch Course Info AND Enrollment
   useEffect(() => {
     async function fetchCourseData() {
       try {
         setLoadingCourse(true);
-        const data = await getCourseBySlug(slug);
-        setCourse(data);
+        const [courseData, enrollRes] = await Promise.all([
+             getCourseBySlug(slug),
+             fetch("/api/user/enrollments")
+        ]);
+
+        setCourse(courseData);
+
+        if (enrollRes.ok) {
+            const data = await enrollRes.json();
+            const enroll = data.enrollments?.find(e => e.courseSlug === slug);
+            setEnrollment(enroll);
+        }
         
         // Auto-select first chapter if none selected
-        if (data && data.chapters && data.chapters.length > 0) {
-          setActiveChapter(data.chapters[0]);
+        if (courseData && courseData.chapters && courseData.chapters.length > 0) {
+          setActiveChapter(courseData.chapters[0]);
         }
       } catch (error) {
         console.error("Failed to fetch course", error);
@@ -162,9 +175,111 @@ export default function Course() {
     }
 
     loadContent();
-  }, [activeChapter]);
+  }, [activeChapter, slug]);
+
+  const handleMarkComplete = async () => {
+      if (!activeChapter) return;
+      
+      const newChapterId = activeChapter.chapterId;
+      
+      // Optimistic local update
+      const currentCompleted = enrollment?.completedChapters || [];
+      // Avoid duplicates in local state
+      if (currentCompleted.includes(newChapterId)) return;
+      
+      const newCompletedList = [...currentCompleted, newChapterId];
+      // Optimistically calculate progress (approximate)
+      const approxProgress = course.chapters.length > 0 
+          ? Math.round((newCompletedList.length / course.chapters.length) * 100) 
+          : 0;
+
+      const previousEnrollment = enrollment;
+      setEnrollment(prev => ({ 
+          ...prev, 
+          completedChapters: newCompletedList,
+          progress: approxProgress,
+          // If prev was null (not enrolled), we are simulating enrollment
+          courseSlug: slug 
+      }));
+
+      try {
+          const res = await fetch("/api/courses/progress", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ 
+                  courseSlug: slug, 
+                  chapterId: newChapterId 
+              })
+          });
+
+          if (!res.ok) {
+             const data = await res.json();
+             
+             // If error is "Enrollment not found", try to enroll then retry progress
+             if (res.status === 404 && data.error === "Enrollment not found") {
+                 const enrollRes = await fetch("/api/courses/enroll", {
+                      method: "POST",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify({ courseSlug: slug })
+                 });
+                 
+                 if (enrollRes.ok) {
+                     // Retry progress update
+                     const retryRes = await fetch("/api/courses/progress", {
+                          method: "POST",
+                          headers: { "Content-Type": "application/json" },
+                          body: JSON.stringify({ 
+                              courseSlug: slug, 
+                              chapterId: newChapterId 
+                          })
+                     });
+                     
+                     if (retryRes.ok) {
+                         const retryData = await retryRes.json();
+                         setEnrollment({
+                             courseSlug: slug,
+                             completedChapters: retryData.completedChapters,
+                             progress: retryData.progress,
+                             lastAccessedAt: new Date()
+                         });
+                         return; // Success
+                     }
+                 }
+             }
+             
+             // If we reach here, it failed either initially or after retry
+             console.error("Failed to update progress", data?.error);
+             setEnrollment(previousEnrollment); // Revert
+          } else {
+              // Success - update with real data from server
+              const data = await res.json();
+              setEnrollment({
+                  courseSlug: slug,
+                  completedChapters: data.completedChapters,
+                  progress: data.progress,
+                  lastAccessedAt: new Date()
+              });
+          }
+      } catch (err) {
+          console.error("Progress update failed", err);
+          setEnrollment(previousEnrollment); // Revert
+      }
+  };
+
+  const isChapterCompleted = (chapterId) => {
+      return enrollment?.completedChapters?.includes(chapterId);
+  };
+
+  const goToNextChapter = () => {
+      if (!course || !activeChapter) return;
+      const currentIndex = course.chapters.findIndex(c => c.chapterId === activeChapter.chapterId);
+      if (currentIndex >= 0 && currentIndex < course.chapters.length - 1) {
+          setActiveChapter(course.chapters[currentIndex + 1]);
+      }
+  };
 
   if (loadingCourse) {
+    // ... (keep existing loading)
     return (
       <div className="h-screen w-full flex items-center justify-center bg-gray-50">
         <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
@@ -173,6 +288,7 @@ export default function Course() {
   }
 
   if (!course) {
+    // ... (keep existing error)
     return (
       <div className="h-screen w-full flex flex-col items-center justify-center bg-gray-50 p-4">
         <AlertCircle className="w-12 h-12 text-red-500 mb-4" />
@@ -206,12 +322,25 @@ export default function Course() {
             <BookOpen className="w-4 h-4" />
             <span>{course.chapters?.length || 0} Chapters</span>
           </div>
+          {/* Progress Bar (Optional) */}
+          {enrollment && (
+              <div className="mt-4">
+                  <div className="flex justify-between text-xs mb-1">
+                      <span className="font-semibold text-blue-700">{enrollment.progress}% Completed</span>
+                  </div>
+                  <div className="w-full bg-blue-100 rounded-full h-1.5">
+                      <div className="bg-blue-600 h-1.5 rounded-full transition-all duration-300" style={{ width: `${enrollment.progress}%` }}></div>
+                  </div>
+              </div>
+          )}
         </div>
 
         {/* Chapters List */}
         <div className="flex-1 overflow-y-auto p-4 space-y-2">
           {course.chapters?.map((chapter) => {
             const isActive = activeChapter?.chapterId === chapter.chapterId;
+            const isCompleted = isChapterCompleted(chapter.chapterId);
+
             return (
               <button
                 key={chapter.chapterId}
@@ -229,9 +358,9 @@ export default function Course() {
               >
                 <div className={`
                   shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold mt-0.5
-                  ${isActive ? 'bg-white/20 text-white' : 'bg-gray-200 text-gray-500 group-hover:bg-white'}
+                  ${isCompleted ? 'bg-green-500 text-white' : (isActive ? 'bg-white/20 text-white' : 'bg-gray-200 text-gray-500 group-hover:bg-white')}
                 `}>
-                  {chapter.chapterNumber}
+                  {isCompleted ? <CheckCircle className="w-4 h-4" /> : chapter.chapterNumber}
                 </div>
                 <div>
                   <h3 className={`text-sm font-semibold leading-snug ${isActive ? 'text-white' : 'text-gray-800'}`}>
@@ -280,9 +409,40 @@ export default function Course() {
               ))}
             </div>
 
-            {/* Navigation / Next Chapter Helper could go here */}
+            {/* Navigation / Next Chapter Helper */}
+            <div className="mt-16 pt-8 border-t border-gray-100 flex justify-end">
+                {isChapterCompleted(activeChapter.chapterId) ? (
+                     // If completed, check if it's the last chapter
+                     activeChapter.chapterNumber === course.chapters.length ? (
+                         // Only show Course Completed if ALL chapters are done
+                         (enrollment?.completedChapters?.length || 0) === course.chapters.length ? (
+                             <div className="px-8 py-3 rounded-xl font-bold flex items-center gap-2 bg-green-100 text-green-700 cursor-default">
+                                 <CheckCircle className="w-5 h-5" /> Course Completed
+                             </div>
+                         ) : (
+                             <div className="px-8 py-3 rounded-xl font-bold flex items-center gap-2 bg-yellow-100 text-yellow-700 cursor-default">
+                                 <Info className="w-5 h-5" /> Finish all chapters
+                             </div>
+                         )
+                     ) : (
+                         <button 
+                            onClick={goToNextChapter}
+                            className="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-3 rounded-xl font-bold flex items-center gap-2 transition-all shadow-lg hover:shadow-indigo-200"
+                         >
+                            Next Chapter <ChevronRight className="w-5 h-5" />
+                         </button>
+                     )
+                ) : (
+                    <button 
+                        onClick={handleMarkComplete}
+                        className="bg-gray-900 hover:bg-gray-800 text-white px-8 py-3 rounded-xl font-bold flex items-center gap-2 transition-all shadow-lg hover:shadow-gray-200"
+                    >
+                        <CheckCircle className="w-5 h-5" /> Mark as Completed
+                    </button>
+                )}
+            </div>
             
-            {course.quiz && activeChapter.chapterNumber === course.chapters.length && (
+            {course.quiz && activeChapter.chapterNumber === course.chapters.length && isChapterCompleted(activeChapter.chapterId) && (
                 <div className="mt-16 p-8 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-2xl text-white text-center shadow-xl">
                     <h3 className="text-2xl font-bold mb-3">Ready to test your knowledge?</h3>
                     <p className="text-indigo-100 mb-6">Complete the chapter quiz to earn your badge.</p>

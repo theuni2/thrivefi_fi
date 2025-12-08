@@ -28,7 +28,7 @@ export default function CourseList({ courses }) {
                 </div>
                 <h3 className="text-lg font-medium text-slate-900 mb-1">No courses yet</h3>
                 <p className="text-slate-500 mb-6 max-w-sm mx-auto">Get started by browsing our catalog and enrolling in your first course.</p>
-                <button className="bg-indigo-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-indigo-700 transition-colors">
+                <button onClick={() => router.push("/courses")}  className="bg-indigo-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-indigo-700 transition-colors">
                     Browse Courses
                 </button>
             </div>

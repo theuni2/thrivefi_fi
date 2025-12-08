@@ -20,8 +20,27 @@ export default function CoursesPage() {
   useEffect(() => {
     async function load() {
       try {
-        const data = await getAllCourses();
-        setCourses(data);
+        const [coursesData, enrollRes] = await Promise.all([
+             getAllCourses(),
+             fetch("/api/user/enrollments")
+        ]);
+        
+        let enrollments = [];
+        if (enrollRes.ok) {
+            const data = await enrollRes.json();
+            enrollments = data.enrollments || [];
+        }
+
+        const merged = coursesData.map(c => {
+            const enroll = enrollments.find(e => e.courseSlug === c.slug);
+            return {
+                ...c,
+                isEnrolled: !!enroll,
+                progress: enroll ? enroll.progress : 0
+            };
+        });
+
+        setCourses(merged);
       } catch (err) {
         console.error("Failed to load courses", err);
       } finally {
@@ -30,6 +49,37 @@ export default function CoursesPage() {
     }
     load();
   }, []);
+
+  const handleEnroll = async (e, course) => {
+      e.stopPropagation(); // Prevent card click
+      if (course.isEnrolled) {
+          router.push(`/courses/${course.slug}`);
+          return;
+      }
+
+      try {
+          // Optimistic update
+          setCourses(prev => prev.map(c => c.slug === course.slug ? { ...c, isEnrolled: true } : c));
+          
+          const res = await fetch("/api/courses/enroll", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ courseSlug: course.slug })
+          });
+
+          if (res.ok) {
+              router.push(`/courses/${course.slug}`);
+          } else {
+              // Revert if failed
+              const data = await res.json();
+              console.error(data.error);
+              setCourses(prev => prev.map(c => c.slug === course.slug ? { ...c, isEnrolled: false } : c));
+          }
+      } catch (err) {
+          console.error("Enrollment failed", err);
+           setCourses(prev => prev.map(c => c.slug === course.slug ? { ...c, isEnrolled: false } : c));
+      }
+  };
 
   if (loading) {
     return (
@@ -78,20 +128,16 @@ export default function CoursesPage() {
                 className="group flex flex-col bg-white rounded-2xl border border-slate-200 shadow-xl hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 overflow-hidden cursor-pointer h-full"
                 onClick={() => router.push(`/courses/${course.slug}`)}
               >
-                {/* Advanced Thumbnail Area */}
-                <div className="h-56 bg-slate-200 relative overflow-hidden">
-                  {course.thumbnail ? (
-                    <img 
-                      src={course.thumbnail} 
-                      alt={course.title}
-                      className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
-                    />
-                  ) : (
-                    <div className="w-full h-full bg-gradient-to-tr from-indigo-600 to-purple-700 flex flex-col items-center justify-center p-8 text-center">
-                      <BookOpen className="w-16 h-16 text-white/40 mb-3" />
-                      <span className="text-white/40 font-bold uppercase tracking-widest text-sm">Course Preview</span>
-                    </div>
-                  )}
+                {/* Decorative Header Area */}
+                <div className="h-48 bg-gradient-to-br from-indigo-600 via-indigo-700 to-purple-800 relative overflow-hidden group-hover:scale-105 transition-transform duration-700">
+                  {/* Abstract shapes/pattern */}
+                  <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-40 h-40 bg-white/10 rounded-full blur-2xl"></div>
+                  <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/4 w-40 h-40 bg-indigo-500/30 rounded-full blur-2xl"></div>
+                  
+                  {/* Central Icon */}
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <BookOpen className="w-16 h-16 text-white/20 transform -rotate-12 group-hover:rotate-0 transition-transform duration-500" />
+                  </div>
                   
                   {/* Category Badge */}
                   <div className="absolute top-4 left-4 z-20">
@@ -113,15 +159,8 @@ export default function CoursesPage() {
                     </span>
                   </div>
                   
-                  {/* Hover Actions */}
-                  <div className="absolute inset-0 bg-indigo-900/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10 backdrop-blur-[2px]">
-                    <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                        <button className="bg-white text-indigo-900 px-6 py-3 rounded-full font-bold shadow-lg flex items-center gap-2 hover:bg-indigo-50 transition-colors">
-                            <PlayCircle className="w-5 h-5" />
-                            Start Learning Now
-                        </button>
-                    </div>
-                  </div>
+                  {/* Hover Actions - Removed Button from here, moved to footer */}
+                  <div className="absolute inset-0 bg-indigo-900/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
                 </div>
 
                 {/* Content Area */}
@@ -160,9 +199,25 @@ export default function CoursesPage() {
                        </div>
                     </div>
                     
-                    <span className="text-indigo-600 bg-indigo-50 p-2 rounded-full group-hover:bg-indigo-600 group-hover:text-white transition-all duration-300">
-                        <ArrowRight className="w-5 h-5 transform -rotate-45 group-hover:rotate-0 transition-transform duration-300" />
-                    </span>
+                    <button 
+                        onClick={(e) => handleEnroll(e, course)}
+                        className={`
+                            px-4 py-2 rounded-full font-bold text-sm flex items-center gap-2 transition-all shadow-md hover:shadow-lg
+                            ${course.isEnrolled 
+                                ? 'bg-indigo-100 text-indigo-700 hover:bg-indigo-200' 
+                                : 'bg-indigo-600 text-white hover:bg-indigo-700'}
+                        `}
+                    >
+                        {course.isEnrolled ? (
+                            <>
+                                <PlayCircle className="w-4 h-4" /> Continue
+                            </>
+                        ) : (
+                            <>
+                                Enroll Now <ArrowRight className="w-4 h-4" />
+                            </>
+                        )}
+                    </button>
                   </div>
                 </div>
               </div>

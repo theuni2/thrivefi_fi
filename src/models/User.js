@@ -16,7 +16,7 @@ const UserSchema = new mongoose.Schema(
     progress: {
       completedChapters: { type: [String], default: [] },
       quizScores: { type: Object, default: {} },
-    }
+    },
   },
   { timestamps: true }
 );

@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { getAllCourses, getModuleData } from "@/lib/courseData";
+import { getAllCourses, getModuleData, getCourseBySlug } from "@/lib/courseData";
 import ProfileHeader from "@/components/profile/ProfileHeader";
 import StatsGrid from "@/components/profile/StatsGrid";
 import CourseList from "@/components/profile/CourseList";
@@ -40,46 +40,51 @@ export default function Profile() {
   }, [router]);
 
   // ---------------------------------------------
-  // LOAD COURSE DATA FROM JSON
+  // FETCH ENROLLMENTS
   // ---------------------------------------------
   useEffect(() => {
-    async function load() {
-      const allCourses = await getAllCourses();
+    async function loadEnrollments() {
+      try {
+        const [enrollRes, allCourses] = await Promise.all([
+          fetch("/api/user/enrollments"),
+          getAllCourses()
+        ]);
 
-      // Attach calculated progress to each course
-      const updated = await Promise.all(
-        allCourses.map(async (course) => {
-          let totalLessons = 0;
-          let completedLessons = 0;
+        if (enrollRes.ok) {
+            const data = await enrollRes.json();
+            const enrollments = data.enrollments || [];
+            
+            // Fetch full details for each enrolled course to get chapter count
+            const enrolledCoursesData = await Promise.all(
+                enrollments.map(async (enroll) => {
+                    // We try to get full data, including chapters
+                    // We can use getCourseBySlug imported from lib, but detailed course info requires a separate fetch internally
+                    // Importing getCourseBySlug and calling it:
+                    const fullCourse = await getCourseBySlug(enroll.courseSlug);
+                    if (!fullCourse) return null;
 
-          for (const mod of course.modules || []) {
-            const moduleData = await getModuleData(course.slug, mod.moduleNumber);
-            const chapters = moduleData.chapters || [];
+                    return {
+                        ...fullCourse,
+                        progress: enroll.progress,
+                        totalLessons: fullCourse.chapters?.length || 0,
+                        completedLessons: enroll.completedChapters.length,
+                        lastAccessed: new Date(enroll.lastAccessedAt).toLocaleDateString(),
+                        enrolledAt: enroll.enrolledAt
+                    };
+                })
+            );
 
-            totalLessons += chapters.length;
-            completedLessons += Math.floor(chapters.length / 2); // Placeholder for now
-          }
-
-          const progress =
-            totalLessons === 0
-              ? 0
-              : Math.floor((completedLessons / totalLessons) * 100);
-
-          return {
-            ...course,
-            progress,
-            totalLessons,
-            completedLessons,
-            lastAccessed: "Recently",
-          };
-        })
-      );
-
-      setCourses(updated);
+            setCourses(enrolledCoursesData.filter(Boolean));
+        }
+      } catch (error) {
+        console.error("Failed to load enrollments", error);
+      }
     }
 
-    load();
-  }, []);
+    if (user) {
+        loadEnrollments();
+    }
+  }, [user]);
 
   const logout = async () => {
     try {
