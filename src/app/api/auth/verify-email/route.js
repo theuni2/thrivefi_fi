@@ -3,6 +3,7 @@ import { generateVerificationCode, decodeToken } from "@/lib/auth";
 import { NextResponse } from "next/server";
 import User from "@/models/User";
 import { connectDB } from "@/lib/database";
+import { generateEmailTemplate } from "@/lib/emailTemplates";
 
 export async function POST(req) {
   try {
@@ -25,8 +26,13 @@ export async function POST(req) {
     await resend.emails.send({
       from: "onboarding@resend.dev",
       to: email,
-      subject: "Hello World",
-      html: `<p>Congrats on sending your <strong>first email</strong>! Your verification code is ${verificationCode}</p>`,
+      subject: "Verify Your Email",
+      html: generateEmailTemplate({
+        title: "Welcome to Our Platform!",
+        message: "Thank you for signing up. Please use the verification code below to complete your registration and activate your account.",
+        code: verificationCode,
+        footerText: "If you didn't create an account, you can safely ignore this email."
+      }),
     });
 
     return NextResponse.json({

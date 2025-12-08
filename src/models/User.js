@@ -7,6 +7,12 @@ const UserSchema = new mongoose.Schema(
     password: { type: String, required: true },
     verified: { type: Boolean, default: false },
     role: { type: String, enum: ["user", "admin"], default: "user" },
+    address: { type: String },
+    mobile: { type: String },
+    referralCode: { type: String, unique: true },
+    referredBy: { type: String },
+    resetPasswordOTP: { type: String },
+    resetPasswordExpires: { type: Date },
     progress: {
       completedChapters: { type: [String], default: [] },
       quizScores: { type: Object, default: {} },

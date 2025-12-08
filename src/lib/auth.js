@@ -25,3 +25,10 @@ export function decodeToken(token) {
 export function generateVerificationCode() {
   return Math.floor(100000 + Math.random() * 900000).toString();
 }
+
+export function generateReferralCode(name) {
+    // Basic implementation: First 3 chars of name (upper) + random 4 chars
+    const prefix = name ? name.substring(0, 3).toUpperCase() : "USR";
+    const random = Math.random().toString(36).substring(2, 6).toUpperCase();
+    return `${prefix}${random}`;
+}

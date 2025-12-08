@@ -5,7 +5,14 @@ import { useRouter } from "next/navigation";
 
 export default function RegisterPage() {
   const router = useRouter();
-  const [form, setForm] = useState({ name: "", email: "", password: "" });
+  const [form, setForm] = useState({ 
+    name: "", 
+    email: "", 
+    password: "", 
+    address: "", 
+    mobile: "", 
+    referralCode: "" 
+  });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -71,6 +78,34 @@ export default function RegisterPage() {
           placeholder="Password"
           required
           value={form.password}
+          onChange={handleChange}
+          className="w-full p-3 border rounded"
+        />
+
+        <input
+          name="address"
+          type="text"
+          placeholder="Address"
+          required
+          value={form.address}
+          onChange={handleChange}
+          className="w-full p-3 border rounded"
+        />
+
+        <input
+          name="mobile"
+          type="text"
+          placeholder="Mobile Number (Optional)"
+          value={form.mobile}
+          onChange={handleChange}
+          className="w-full p-3 border rounded"
+        />
+
+        <input
+          name="referralCode"
+          type="text"
+          placeholder="Referral Code (Optional)"
+          value={form.referralCode}
           onChange={handleChange}
           className="w-full p-3 border rounded"
         />
