@@ -72,13 +72,39 @@ export async function GET(req, { params }) {
           : 0,
     };
 
+    // Prepare comprehensive student details
+    const studentDetails = {
+      // Basic Information
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+
+      // Verification & Status
+      verified: user.verified,
+
+      // Contact Information
+      address: user.address || null,
+      mobile: user.mobile || null,
+
+      // Referral Information
+      referralCode: user.referralCode || null,
+      referredBy: user.referredBy || null,
+
+      // Timestamps
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
+
+      // Course Statistics
+      stats,
+
+      // Enrolled Courses Details
+      courses: enrichedCourses,
+    };
+
     return NextResponse.json({
       success: true,
-      student: {
-        ...user,
-        stats,
-        courses: enrichedCourses,
-      },
+      student: studentDetails,
     });
   } catch (error) {
     console.error("Student Detail Error:", error);

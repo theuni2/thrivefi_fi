@@ -12,6 +12,9 @@ import {
   Loader2,
   ChevronRight,
   User as UserIcon,
+  Mail,
+  Calendar,
+  ShieldCheck,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 
@@ -28,6 +31,8 @@ export default function Dashboard() {
   });
   const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [adminProfile, setAdminProfile] = useState(null);
+  const [showProfilePopup, setShowProfilePopup] = useState(false);
 
   useEffect(() => {
     async function validateAdmin() {
@@ -53,9 +58,10 @@ export default function Dashboard() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const [statsRes, studentsRes] = await Promise.all([
+        const [statsRes, studentsRes, profileRes] = await Promise.all([
           fetch("/api/admin/stats"),
           fetch("/api/admin/students"),
+          fetch("/api/admin/profile"),
         ]);
 
         if (statsRes.ok) {
@@ -66,6 +72,11 @@ export default function Dashboard() {
         if (studentsRes.ok) {
           const studentsData = await studentsRes.json();
           setStudents(studentsData.students);
+        }
+
+        if (profileRes.ok) {
+          const profileData = await profileRes.json();
+          setAdminProfile(profileData.admin);
         }
       } catch (error) {
         console.error("Dashboard Data Error:", error);
@@ -115,7 +126,7 @@ export default function Dashboard() {
               </p>
             </div>
 
-            {/* Search Bar & Logout */}
+            {/* Search Bar & Profile */}
             <div className="flex flex-col md:flex-row gap-4 w-full md:w-auto items-center">
               <div className="relative w-full md:w-96">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -130,13 +141,137 @@ export default function Dashboard() {
                 />
               </div>
 
-              <button
-                onClick={logout}
-                className="flex items-center gap-2 px-4 py-2.5 rounded-lg border border-slate-200 hover:bg-red-50 hover:text-red-600 hover:border-red-200 text-slate-600 font-medium transition-all duration-200 whitespace-nowrap"
-              >
-                <LogOut className="w-4 h-4" />
-                <span className="hidden md:inline">Sign Out</span>
-              </button>
+              {/* Profile Icon with Popup */}
+              <div className="relative">
+                <button
+                  onClick={() => setShowProfilePopup(!showProfilePopup)}
+                  className="flex items-center gap-2 px-3 py-2.5 rounded-lg border border-slate-200 hover:bg-slate-50 text-slate-700 font-medium transition-all duration-200 whitespace-nowrap"
+                >
+                  <div className="w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 font-bold flex items-center justify-center border border-indigo-200">
+                    {adminProfile?.name ? (
+                      adminProfile.name.charAt(0).toUpperCase()
+                    ) : (
+                      <UserIcon className="w-4 h-4" />
+                    )}
+                  </div>
+                  {/* <span className="hidden md:inline text-sm">
+                    {adminProfile?.name || "Admin"}
+                  </span> */}
+                </button>
+
+                {/* Profile Popup */}
+                {showProfilePopup && (
+                  <>
+                    {/* Backdrop to close popup */}
+                    <div
+                      className="fixed inset-0 z-40"
+                      onClick={() => setShowProfilePopup(false)}
+                    />
+
+                    {/* Popup Content */}
+                    <div className="absolute right-0 mt-2 w-80 bg-white rounded-xl shadow-2xl border border-slate-200 z-50 overflow-hidden">
+                      {/* Header */}
+                      <div className="bg-gradient-to-r from-indigo-500 to-purple-600 p-6 text-white">
+                        <div className="flex items-center gap-4">
+                          <div className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-sm text-white font-bold flex items-center justify-center text-2xl border-2 border-white/30">
+                            {adminProfile?.name ? (
+                              adminProfile.name.charAt(0).toUpperCase()
+                            ) : (
+                              <UserIcon className="w-8 h-8" />
+                            )}
+                          </div>
+                          <div>
+                            <h3 className="font-bold text-lg">
+                              {adminProfile?.name || "Admin User"}
+                            </h3>
+                            <p className="text-indigo-100 text-sm">
+                              Administrator
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Account Details */}
+                      <div className="p-4 space-y-3">
+                        <div className="flex items-start gap-3 p-3 rounded-lg bg-slate-50">
+                          <Mail className="w-4 h-4 text-slate-500 mt-0.5" />
+                          <div className="flex-1 min-w-0">
+                            <p className="text-xs text-slate-500 font-medium">
+                              Email
+                            </p>
+                            <p className="text-sm text-slate-900 font-medium truncate">
+                              {adminProfile?.email || "N/A"}
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="flex items-start gap-3 p-3 rounded-lg bg-slate-50">
+                          <ShieldCheck className="w-4 h-4 text-slate-500 mt-0.5" />
+                          <div className="flex-1">
+                            <p className="text-xs text-slate-500 font-medium">
+                              Status
+                            </p>
+                            <div className="flex items-center gap-2 mt-1">
+                              <span
+                                className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
+                                  adminProfile?.verified
+                                    ? "bg-green-100 text-green-700 border border-green-200"
+                                    : "bg-yellow-100 text-yellow-700 border border-yellow-200"
+                                }`}
+                              >
+                                {adminProfile?.verified
+                                  ? "Verified"
+                                  : "Unverified"}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="flex items-start gap-3 p-3 rounded-lg bg-slate-50">
+                          <Calendar className="w-4 h-4 text-slate-500 mt-0.5" />
+                          <div className="flex-1">
+                            <p className="text-xs text-slate-500 font-medium">
+                              Member Since
+                            </p>
+                            <p className="text-sm text-slate-900 font-medium">
+                              {adminProfile?.createdAt
+                                ? new Date(
+                                    adminProfile.createdAt
+                                  ).toLocaleDateString("en-US", {
+                                    year: "numeric",
+                                    month: "long",
+                                    day: "numeric",
+                                  })
+                                : "N/A"}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Action Buttons */}
+                      <div className="p-4 border-t border-slate-100 space-y-2">
+                        <button
+                          onClick={() => {
+                            setShowProfilePopup(false);
+                            router.push("/dashboard/admin-profile");
+                          }}
+                          className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-indigo-50 hover:bg-indigo-100 text-indigo-600 font-medium transition-all duration-200 border border-indigo-200"
+                        >
+                          <UserIcon className="w-4 h-4" />
+                          View Profile
+                        </button>
+                        <button
+                          onClick={logout}
+                          className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 font-medium transition-all duration-200 border border-red-200"
+                        >
+                          <LogOut className="w-4 h-4" />
+                          Sign Out
+                        </button>
+                      </div>
+                    </div>
+                  </>
+                )}
+              </div>
             </div>
           </div>
         </div>
