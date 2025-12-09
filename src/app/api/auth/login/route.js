@@ -12,27 +12,25 @@ export async function POST(req) {
     const user = await User.findOne({ email });
 
     if (!user) {
-      return NextResponse.json(
-        { error: "User not found" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "User not found" }, { status: 400 });
     }
 
     const validPass = await bcrypt.compare(password, user.password);
 
     if (!validPass) {
-      return NextResponse.json(
-        { error: "Invalid password" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Invalid password" }, { status: 400 });
     }
 
-    const token = signToken({ id: user._id, email: user.email });
-
-    const response = NextResponse.json({ 
-      success: true, 
+    const token = signToken({
+      id: user._id,
+      email: user.email,
       role: user.role,
-      redirectUrl: user.role === "admin" ? "/dashboard" : "/profile"
+    });
+
+    const response = NextResponse.json({
+      success: true,
+      role: user.role,
+      redirectUrl: user.role === "admin" ? "/dashboard" : "/profile",
     });
 
     response.cookies.set("token", token, {

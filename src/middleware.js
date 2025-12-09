@@ -17,7 +17,7 @@ export function middleware(req) {
   // console.log("Token:", token);
 
   if (!token) {
-    console.log("redirecting back to LOGIN")
+    // console.log("Middleware - No token, redirecting to login");
     return NextResponse.redirect(new URL("/login", req.url));
   }
 
@@ -25,6 +25,7 @@ export function middleware(req) {
     verifyToken(token);
     return NextResponse.next();
   } catch (err) {
+    console.error("Middleware error:", err);
     return NextResponse.redirect(new URL("/login", req.url));
   }
 }

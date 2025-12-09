@@ -15,9 +15,9 @@ export function verifyToken(token) {
 }
 
 export function decodeToken(token) {
-  try{
-    return jwt.decode(token,process.env.JWT_SECRET);
-  } catch(err){
+  try {
+    return jwt.decode(token, process.env.JWT_SECRET);
+  } catch (err) {
     return null;
   }
 }
@@ -27,8 +27,8 @@ export function generateVerificationCode() {
 }
 
 export function generateReferralCode(name) {
-    // Basic implementation: First 3 chars of name (upper) + random 4 chars
-    const prefix = name ? name.substring(0, 3).toUpperCase() : "USR";
-    const random = Math.random().toString(36).substring(2, 6).toUpperCase();
-    return `${prefix}${random}`;
+  // Basic implementation: First 3 chars of name (upper) + random 4 chars
+  const prefix = name ? name.substring(0, 3).toUpperCase() : "USR";
+  const random = Math.random().toString(36).substring(2, 6).toUpperCase();
+  return `${prefix}${random}`;
 }
