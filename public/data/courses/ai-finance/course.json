@@ -13,6 +13,13 @@
       "content": "chapter-1.json"
     },
     {
+    "chapterId": "chapter-1-Quiz",
+      "chapterNumber": 1.1,
+      "title": "AI Quiz: Match Applications",
+      "description": "Match each AI application to its primary function. Drag or pair the left item with the correct right item.",
+      "content": "quiz-chapter-1.json"
+    },
+    {
       "chapterId": "chapter-2",
       "chapterNumber": 2,
       "title": "SMART BANKING WITH AI",

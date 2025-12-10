@@ -1,23 +1,71 @@
 {
   "quizId": "quiz-1-1",
-  "chapterId": "chapter-1",
-  "title": "AI Quiz: Match Applications",
-  "type": "matching",
-  "instructions": "Match each AI application to its primary function. Drag or pair the left item with the correct right item.",
+  "chapterId": "chapter-1-Quiz",
+  "title": "AI Quiz: Test Your Knowledge",
+  "type": "multiple-choice",
+  "instructions": "Select the best answer for each question. You can change your answers before submitting.",
   "passingScore": 60,
   "timeLimit": "5 min",
-  "pairs": [
-    { "id": 1, "left": "Google Assistant", "right": "Helps with voice commands" },
-    { "id": 2, "left": "Netflix Recommendations", "right": "Recommends movies based on watching history" },
-    { "id": 3, "left": "Face Recognition on Facebook", "right": "Recognizes and tags people in photos" },
-    { "id": 4, "left": "ChatGPT", "right": "Generate human-like text in response to prompts" },
-    { "id": 5, "left": "Teslas", "right": "Autonomous driving and predictive maintenance" }
-  ],
-  "correctMatches": {
-    "1": "Helps with voice commands",
-    "2": "Recommends movies based on watching history",
-    "3": "Recognizes and tags people in photos",
-    "4": "Generate human-like text in response to prompts",
-    "5": "Autonomous driving and predictive maintenance"
-  }
+  "questions": [
+    {
+      "id": 1,
+      "question": "What is the primary function of Google Assistant?",
+      "options": [
+        "Helps with voice commands",
+        "Recommends movies based on watching history",
+        "Recognizes and tags people in photos",
+        "Generate human-like text in response to prompts"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Google Assistant is designed to help users with voice commands for various tasks."
+    },
+    {
+      "id": 2,
+      "question": "What does Netflix use AI for?",
+      "options": [
+        "Autonomous driving",
+        "Recommends movies based on watching history",
+        "Helps with voice commands",
+        "Recognizes faces in photos"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Netflix uses AI algorithms to analyze your viewing history and recommend content you might enjoy."
+    },
+    {
+      "id": 3,
+      "question": "What is the main AI feature of Facebook's face recognition?",
+      "options": [
+        "Generate human-like text",
+        "Helps with voice commands",
+        "Recognizes and tags people in photos",
+        "Recommends movies"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Facebook uses AI to automatically recognize and suggest tags for people in photos."
+    },
+    {
+      "id": 4,
+      "question": "What is ChatGPT primarily designed to do?",
+      "options": [
+        "Autonomous driving",
+        "Recognizes faces",
+        "Helps with voice commands",
+        "Generate human-like text in response to prompts"
+      ],
+      "correctAnswer": 3,
+      "explanation": "ChatGPT is an AI language model that generates human-like text responses to user prompts."
+    },
+    {
+      "id": 5,
+      "question": "How does Tesla use AI technology?",
+      "options": [
+        "Autonomous driving and predictive maintenance",
+        "Recommends movies",
+        "Recognizes faces in photos",
+        "Generate text responses"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Tesla uses AI for autonomous driving features and to predict when vehicle maintenance is needed."
+    }
+  ]
 }
