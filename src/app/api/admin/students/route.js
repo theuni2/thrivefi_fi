@@ -49,16 +49,16 @@ export async function GET(req) {
         const overallProgress =
           coursesEnrolled > 0 ? Math.round(totalProgress / coursesEnrolled) : 0;
 
-        // Mocking quiz scores for now as they might be stored differently or need complex aggregation
-        // If User model has `quizScores` (as seen in file view), we can use that.
-        // User model: `quizScores: { type: Object, default: {} }`
-        const quizScores = user.progress?.quizScores || {};
-        const quizKeys = Object.keys(quizScores);
+        // Calculate average quiz score from enrollments
+        // Each enrollment has quizScores array with {quizId, score, ...}
+        const allQuizScores = enrollments.flatMap((e) => e.quizScores || []);
         const avgQuizScore =
-          quizKeys.length > 0
+          allQuizScores.length > 0
             ? Math.round(
-                quizKeys.reduce((a, b) => a + quizScores[b], 0) /
-                  quizKeys.length
+                allQuizScores.reduce(
+                  (sum, quiz) => sum + (quiz.score || 0),
+                  0
+                ) / allQuizScores.length
               )
             : 0;
 

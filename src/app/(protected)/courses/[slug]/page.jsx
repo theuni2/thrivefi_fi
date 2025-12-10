@@ -537,26 +537,39 @@ export default function Course() {
               <div className="mt-16 pt-8 border-t border-gray-100 flex justify-end">
                 {isChapterCompleted(activeChapter.chapterId) ? (
                   // If completed, check if it's the last chapter
-                  activeChapter.chapterNumber === course.chapters.length ? (
-                    // Only show Course Completed if ALL chapters are done
-                    (enrollment?.completedChapters?.length || 0) ===
-                    course.chapters.length ? (
-                      <div className="px-8 py-3 rounded-xl font-bold flex items-center gap-2 bg-green-100 text-green-700 cursor-default">
-                        <CheckCircle className="w-5 h-5" /> Course Completed
-                      </div>
-                    ) : (
-                      <div className="px-8 py-3 rounded-xl font-bold flex items-center gap-2 bg-yellow-100 text-yellow-700 cursor-default">
-                        <Info className="w-5 h-5" /> Finish all chapters
-                      </div>
-                    )
-                  ) : (
-                    <button
-                      onClick={goToNextChapter}
-                      className="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-3 rounded-xl font-bold flex items-center gap-2 transition-all shadow-lg hover:shadow-indigo-200"
-                    >
-                      Next Chapter <ChevronRight className="w-5 h-5" />
-                    </button>
-                  )
+                  (() => {
+                    const currentIndex = course.chapters.findIndex(
+                      (c) => c.chapterId === activeChapter.chapterId
+                    );
+                    const isLastChapter =
+                      currentIndex === course.chapters.length - 1;
+
+                    if (isLastChapter) {
+                      // Only show Course Completed if ALL chapters are done
+                      const allChaptersCompleted =
+                        (enrollment?.completedChapters?.length || 0) ===
+                        course.chapters.length;
+
+                      return allChaptersCompleted ? (
+                        <div className="px-8 py-3 rounded-xl font-bold flex items-center gap-2 bg-green-100 text-green-700 cursor-default">
+                          <CheckCircle className="w-5 h-5" /> Course Completed
+                        </div>
+                      ) : (
+                        <div className="px-8 py-3 rounded-xl font-bold flex items-center gap-2 bg-yellow-100 text-yellow-700 cursor-default">
+                          <Info className="w-5 h-5" /> Finish all chapters
+                        </div>
+                      );
+                    } else {
+                      return (
+                        <button
+                          onClick={goToNextChapter}
+                          className="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-3 rounded-xl font-bold flex items-center gap-2 transition-all shadow-lg hover:shadow-indigo-200"
+                        >
+                          Next Chapter <ChevronRight className="w-5 h-5" />
+                        </button>
+                      );
+                    }
+                  })()
                 ) : (
                   <button
                     onClick={handleMarkComplete}
