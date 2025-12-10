@@ -106,17 +106,7 @@ export default function QuizChapter({
   };
 
   const handleMarkComplete = async () => {
-    console.log("Mark as Complete clicked", {
-      score,
-      passingScore: quizData.passingScore,
-      isPassed,
-    });
-
     if (score === null || score < quizData.passingScore) {
-      console.error("Validation failed:", {
-        score,
-        passingScore: quizData.passingScore,
-      });
       alert(
         `You must pass the quiz before marking it as complete. Your score: ${score}%, Required: ${quizData.passingScore}%`
       );
@@ -125,13 +115,6 @@ export default function QuizChapter({
 
     try {
       setSubmitting(true);
-
-      console.log("Submitting quiz to API:", {
-        courseSlug,
-        chapterId: quizData.chapterId,
-        quizId: quizData.quizId,
-        score,
-      });
 
       // Save quiz score to database
       const res = await fetch("/api/courses/quiz/submit", {
@@ -147,11 +130,8 @@ export default function QuizChapter({
         }),
       });
 
-      console.log("API Response status:", res.status);
-
       if (res.ok) {
         const data = await res.json();
-        console.log("Quiz saved successfully:", data);
 
         setQuizStatus({
           score,
@@ -165,7 +145,6 @@ export default function QuizChapter({
         }
       } else {
         const errorData = await res.json();
-        console.error("API Error:", errorData);
         alert(`Failed to save quiz: ${errorData.error || "Unknown error"}`);
       }
     } catch (error) {
@@ -201,8 +180,6 @@ export default function QuizChapter({
     );
   }
 
-  console.log("Quiz data loaded:", quizData);
-
   const isPassed = score !== null && score >= quizData.passingScore;
 
   return (
@@ -222,12 +199,6 @@ export default function QuizChapter({
         </div>
 
         <div className="flex gap-4 text-sm">
-          <div className="flex items-center gap-2 bg-blue-50 px-4 py-2 rounded-lg">
-            <Clock className="w-4 h-4 text-blue-600" />
-            <span className="font-semibold text-blue-900">
-              Time Limit: {quizData.timeLimit}
-            </span>
-          </div>
           <div className="flex items-center gap-2 bg-green-50 px-4 py-2 rounded-lg">
             <Award className="w-4 h-4 text-green-600" />
             <span className="font-semibold text-green-900">
@@ -298,7 +269,7 @@ export default function QuizChapter({
                 <h3 className="text-lg font-bold text-gray-900 flex-1">
                   {question.question}
                 </h3>
-                {showFeedback && (
+                {showFeedback && userAnswer !== undefined && (
                   <div className="shrink-0">
                     {isCorrect ? (
                       <CheckCircle className="w-6 h-6 text-green-600" />

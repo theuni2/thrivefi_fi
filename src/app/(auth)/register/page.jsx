@@ -5,14 +5,15 @@ import { useRouter } from "next/navigation";
 
 export default function RegisterPage() {
   const router = useRouter();
-  const [form, setForm] = useState({ 
-    name: "", 
-    email: "", 
-    password: "", 
-    address: "", 
-    mobile: "", 
-    referralCode: "" 
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    password: "",
+    address: "",
+    mobile: "",
+    referralCode: "",
   });
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -24,6 +25,13 @@ export default function RegisterPage() {
     e.preventDefault();
     setLoading(true);
     setError("");
+
+    // Validate passwords match
+    if (form.password !== confirmPassword) {
+      setError("Passwords do not match");
+      setLoading(false);
+      return;
+    }
 
     try {
       const res = await fetch("/api/auth/register", {
@@ -49,7 +57,9 @@ export default function RegisterPage() {
 
   return (
     <div className="w-full max-w-md bg-white p-8 rounded-xl shadow">
-      <h2 className="text-2xl font-semibold mb-4 text-center">Create Account</h2>
+      <h2 className="text-2xl font-semibold mb-4 text-center">
+        Create Account
+      </h2>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
@@ -79,6 +89,16 @@ export default function RegisterPage() {
           required
           value={form.password}
           onChange={handleChange}
+          className="w-full p-3 border rounded"
+        />
+
+        <input
+          name="confirmPassword"
+          type="password"
+          placeholder="Confirm Password"
+          required
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
           className="w-full p-3 border rounded"
         />
 
@@ -122,7 +142,9 @@ export default function RegisterPage() {
 
       <p className="mt-4 text-center text-sm">
         Already have an account?{" "}
-        <a href="/login" className="text-blue-600">Login</a>
+        <a href="/login" className="text-blue-600">
+          Login
+        </a>
       </p>
     </div>
   );

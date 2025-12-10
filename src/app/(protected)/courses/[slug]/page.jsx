@@ -1,6 +1,6 @@
 "use client";
 
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { getCourseBySlug, getChapterContent } from "@/lib/courseData";
 import { useEffect, useState } from "react";
 import {
@@ -13,6 +13,8 @@ import {
   Info,
   Lightbulb,
   AlertCircle,
+  ArrowLeft,
+  Lock,
 } from "lucide-react";
 import QuizChapter from "@/components/QuizChapter";
 
@@ -127,6 +129,7 @@ const Section = ({ section }) => (
 
 export default function Course() {
   const { slug } = useParams();
+  const router = useRouter();
 
   // ... inside Course component
   const [course, setCourse] = useState(null);
@@ -356,6 +359,15 @@ export default function Course() {
       >
         {/* Sidebar Header */}
         <div className="p-6 border-b border-gray-200 bg-white">
+          {/* Back Button */}
+          <button
+            onClick={() => router.push("/profile")}
+            className="flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4 transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            <span className="text-sm font-medium">Back to Profile</span>
+          </button>
+
           <h1 className="font-bold text-lg text-gray-900 leading-tight">
             {course.title}
           </h1>
@@ -384,21 +396,34 @@ export default function Course() {
 
         {/* Chapters List */}
         <div className="flex-1 overflow-y-auto p-4 space-y-2">
-          {course.chapters?.map((chapter) => {
+          {course.chapters?.map((chapter, index) => {
             const isActive = activeChapter?.chapterId === chapter.chapterId;
             const isCompleted = isChapterCompleted(chapter.chapterId);
+
+            // Check if previous chapter is completed (for locking logic)
+            const previousChapter =
+              index > 0 ? course.chapters[index - 1] : null;
+            const isPreviousCompleted = previousChapter
+              ? isChapterCompleted(previousChapter.chapterId)
+              : true; // First chapter is always unlocked
+            const isLocked = !isPreviousCompleted && !isCompleted;
 
             return (
               <button
                 key={chapter.chapterId}
                 onClick={() => {
-                  setActiveChapter(chapter);
-                  setMobileMenuOpen(false);
+                  if (!isLocked) {
+                    setActiveChapter(chapter);
+                    setMobileMenuOpen(false);
+                  }
                 }}
+                disabled={isLocked}
                 className={`
                   w-full text-left p-3 rounded-lg flex items-start gap-3 transition-all duration-200 group
                   ${
-                    isActive
+                    isLocked
+                      ? "opacity-50 cursor-not-allowed bg-gray-50"
+                      : isActive
                       ? "bg-blue-600 text-white shadow-md shadow-blue-200"
                       : "hover:bg-gray-100 text-gray-700"
                   }
@@ -408,7 +433,9 @@ export default function Course() {
                   className={`
                   shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold mt-0.5
                   ${
-                    isCompleted
+                    isLocked
+                      ? "bg-gray-300 text-gray-500"
+                      : isCompleted
                       ? "bg-green-500 text-white"
                       : isActive
                       ? "bg-white/20 text-white"
@@ -416,29 +443,41 @@ export default function Course() {
                   }
                 `}
                 >
-                  {isCompleted ? (
+                  {isLocked ? (
+                    <Lock className="w-3 h-3" />
+                  ) : isCompleted ? (
                     <CheckCircle className="w-4 h-4" />
                   ) : (
                     chapter.chapterNumber
                   )}
                 </div>
-                <div>
+                <div className="flex-1">
                   <h3
                     className={`text-sm font-semibold leading-snug ${
-                      isActive ? "text-white" : "text-gray-800"
+                      isLocked
+                        ? "text-gray-500"
+                        : isActive
+                        ? "text-white"
+                        : "text-gray-800"
                     }`}
                   >
                     {chapter.title}
                   </h3>
                   <p
                     className={`text-xs mt-1 line-clamp-1 ${
-                      isActive ? "text-blue-100" : "text-gray-500"
+                      isLocked
+                        ? "text-gray-400"
+                        : isActive
+                        ? "text-blue-100"
+                        : "text-gray-500"
                     }`}
                   >
-                    {chapter.description}
+                    {isLocked
+                      ? "Complete previous chapter to unlock"
+                      : chapter.description}
                   </p>
                 </div>
-                {isActive && (
+                {isActive && !isLocked && (
                   <ChevronRight className="w-4 h-4 ml-auto self-center opacity-80" />
                 )}
               </button>
