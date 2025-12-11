@@ -1,0 +1,23 @@
+{
+  "quizId": "quiz-5-1",
+  "chapterId": "chapter-5-Quiz",
+  "title": "Bill Reminders and Payments with AI",
+  "type": "text-submit",
+  "instructions": "List the bills you pay regularly and describe how you think AI can help you track, manage, or automate these payments.",
+  "passingScore": null,
+  "timeLimit": null,
+  "questions": [
+    {
+      "id": 1,
+      "question": "List all the bills you pay regularly (e.g., phone, electricity, rent, internet, subscriptions)."
+    },
+    {
+      "id": 2,
+      "question": "How do you believe AI can help you keep track of these bills?"
+    },
+    {
+      "id": 3,
+      "question": "How can AI help you manage or automate these payments?"
+    }
+  ]
+}

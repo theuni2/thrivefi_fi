@@ -499,7 +499,8 @@ export default function Course() {
         ) : chapterContent ? (
           // Check if this is a quiz chapter
           chapterContent.type === "matching" ||
-          chapterContent.type === "multiple-choice" ? (
+          chapterContent.type === "multiple-choice" ||
+          chapterContent.type === "text-submit" ? (
             <QuizChapter
               quizData={chapterContent}
               courseSlug={slug}

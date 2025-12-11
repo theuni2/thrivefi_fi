@@ -1,0 +1,55 @@
+{
+  "quizId": "quiz-3-1",
+  "chapterId": "chapter-3-Quiz",
+  "title": "Robo-Advisors and AI: Client Portfolio Matching",
+  "type": "text-submit",
+  "instructions": "Review each client's profile and type what portfolio you think the AI robo-advisor should recommend. Base your answer on their age, goals, time horizon, and risk tolerance.",
+  "passingScore": null,
+  "timeLimit": null,
+  "clients": [
+    {
+      "id": 1,
+      "name": "Jordan",
+      "age": 27,
+      "goal": "Long-term wealth building",
+      "timeHorizon": "30 years",
+      "riskTolerance": "High"
+    },
+    {
+      "id": 2,
+      "name": "Priya",
+      "age": 62,
+      "goal": "Retirement income starting in 3 years",
+      "riskTolerance": "Low"
+    },
+    {
+      "id": 3,
+      "name": "Luis",
+      "age": 40,
+      "goal": "Saving for child’s college in 8 years",
+      "riskTolerance": "Medium"
+    },
+    {
+      "id": 4,
+      "name": "Maya",
+      "age": 50,
+      "goal": "Early retirement in 10 years",
+      "riskTolerance": "Medium"
+    }
+  ],
+  "portfolioTypes": [
+    {
+      "type": "Conservative",
+      "allocation": "80% bonds / 20% stocks"
+    },
+    {
+      "type": "Moderate",
+      "allocation": "50% bonds / 50% stocks"
+    },
+    {
+      "type": "Aggressive",
+      "allocation": "20% bonds / 80% stocks"
+    }
+  ],
+  "instructionsForTrainee": "For each client, submit the portfolio type you believe is most suitable."
+}

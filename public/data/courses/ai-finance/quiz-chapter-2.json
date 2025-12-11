@@ -1,0 +1,19 @@
+{
+  "quizId": "quiz-2-1",
+  "chapterId": "chapter-2-Quiz",
+  "title": "Fraud Detection with AI: Scenario Activity",
+  "type": "text-submit",
+  "instructions": "Read the scenario carefully and type your response in the text box. Your answer should describe what the AI system should do in this situation.",
+  "passingScore": null,
+  "timeLimit": null,
+  "scenario": {
+    "id": 1,
+    "question": "Your account shows a ₹10,000 transaction in a city you’ve never visited. What should the AI system do?",
+    "allowedAnswers": [
+      "Temporarily block the account.",
+      "Send text message to customer.",
+      "Send phone call to customer.",
+      "Trace the transaction."
+    ]
+  }
+}

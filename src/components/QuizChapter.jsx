@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import {
   CheckCircle,
   XCircle,
@@ -19,11 +19,51 @@ export default function QuizChapter({
   onContinue,
 }) {
   const [answers, setAnswers] = useState({});
-  const [submitted, setSubmitted] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false); // Can be just saved, not necessarily chapter complete
   const [score, setScore] = useState(null);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
-  const [quizStatus, setQuizStatus] = useState(null);
+  const [message, setMessage] = useState(null); // Feedback message
+
+  // Normalize questions based on varying data structures
+  const normalizedQuestions = useMemo(() => {
+    if (!quizData) return [];
+    if (quizData.questions) return quizData.questions;
+    if (quizData.scenario) return [quizData.scenario];
+    if (quizData.clients) {
+      return quizData.clients.map((client) => ({
+        id: client.id,
+        isClientProfile: true, // Marker for custom rendering if needed
+        question: (
+          <div className="space-y-1">
+            <h4 className="font-bold text-lg text-indigo-900">{client.name}</h4>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-gray-700">
+              <div className="bg-gray-50 p-2 rounded">
+                <strong>Age:</strong> {client.age}
+              </div>
+              <div className="bg-gray-50 p-2 rounded">
+                <strong>Goal:</strong> {client.goal}
+              </div>
+              {client.timeHorizon && (
+                <div className="bg-gray-50 p-2 rounded">
+                  <strong>Time Horizon:</strong> {client.timeHorizon}
+                </div>
+              )}
+              {client.riskTolerance && (
+                <div className="bg-gray-50 p-2 rounded">
+                  <strong>Risk Tolerance:</strong> {client.riskTolerance}
+                </div>
+              )}
+            </div>
+            <p className="text-sm font-medium text-gray-500 mt-2">
+              Recommended Portfolio:
+            </p>
+          </div>
+        ),
+      }));
+    }
+    return [];
+  }, [quizData]);
 
   // Check if quiz was already submitted
   useEffect(() => {
@@ -41,9 +81,11 @@ export default function QuizChapter({
               (q) => q.quizId === quizData.quizId
             );
             if (quizScore) {
-              setQuizStatus(quizScore);
-              setSubmitted(true);
+              setIsSubmitted(true);
               setScore(quizScore.score);
+              if (quizScore.answers) {
+                setAnswers(quizScore.answers);
+              }
             }
           }
         }
@@ -57,19 +99,25 @@ export default function QuizChapter({
     checkQuizStatus();
   }, [courseSlug, quizData.quizId]);
 
-  const handleAnswerChange = (questionId, optionIndex) => {
-    if (submitted) return; // Prevent changes after submission
+  const handleAnswerChange = (questionId, value) => {
+    if (isSubmitted) return; // Prevent changes after submission
     setAnswers((prev) => ({
       ...prev,
-      [questionId]: optionIndex,
+      [questionId]: value,
     }));
   };
 
   const handleSubmit = async () => {
+    const isTextSubmit = quizData.type === "text-submit";
+
     // Check if all questions are answered
-    const allAnswered = quizData.questions.every(
-      (q) => answers[q.id] !== undefined
-    );
+    const allAnswered = normalizedQuestions.every((q) => {
+      const ans = answers[q.id];
+      if (isTextSubmit) {
+        return ans && ans.trim().length > 0;
+      }
+      return ans !== undefined;
+    });
 
     if (!allAnswered) {
       alert("Please answer all questions before submitting.");
@@ -78,35 +126,78 @@ export default function QuizChapter({
 
     setSubmitting(true);
 
-    // Calculate score
-    let correctCount = 0;
-    quizData.questions.forEach((q) => {
-      if (answers[q.id] === q.correctAnswer) {
-        correctCount++;
+    // Default score
+    let calculatedScore = 100;
+
+    if (!isTextSubmit) {
+      // Calculate score for multiple choice
+      let correctCount = 0;
+      normalizedQuestions.forEach((q) => {
+        if (answers[q.id] === q.correctAnswer) {
+          correctCount++;
+        }
+      });
+
+      const totalQuestions = normalizedQuestions.length;
+      calculatedScore = Math.round((correctCount / totalQuestions) * 100);
+    }
+
+    setScore(calculatedScore);
+
+    // If text submit, we SAVE first (saveOnly=true), user must explicitly Complete later
+    // If multiple choice, we can probably just do standard flow or same?
+    // User requested "get the button to mark the chapter as completed" for input type.
+    // For consistency let's use saveOnly for text-submit types.
+
+    try {
+      const res = await fetch("/api/courses/quiz/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          courseSlug,
+          chapterId: quizData.chapterId,
+          quizId: quizData.quizId,
+          score: calculatedScore,
+          totalQuestions: normalizedQuestions.length,
+          answers,
+          saveOnly: isTextSubmit, // Only save answers, don't mark chapter complete yet
+        }),
+      });
+
+      if (res.ok) {
+        setIsSubmitted(true);
+        setMessage(isTextSubmit ? "Responses saved successfully." : null);
+        if (!isTextSubmit) {
+          // For MCQ we might want to trigger completion if passed right away?
+          // But sticking to the pattern: Submit -> (if passed) Mark Complete / Continue.
+          // Actually existing logic for MCQ was auto-check.
+          // Let's keep it simple: Text Submit -> Save Only.
+        }
+      } else {
+        const err = await res.json();
+        alert("Failed to submit: " + (err.error || "Unknown error"));
       }
-    });
-
-    const totalQuestions = quizData.questions.length;
-    const scorePercentage = Math.round((correctCount / totalQuestions) * 100);
-    setScore(scorePercentage);
-    setSubmitted(true);
-    setSubmitting(false);
-
-    // Note: We don't save to database here anymore
-    // Score is only saved when user clicks "Mark as Completed"
+    } catch (err) {
+      console.error("Submit error", err);
+      alert("Failed to submit quiz.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const handleRetakeQuiz = () => {
-    // Reset quiz state to allow retaking
     setAnswers({});
-    setSubmitted(false);
+    setIsSubmitted(false);
     setScore(null);
-    // Scroll to top
+    setMessage(null);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const handleMarkComplete = async () => {
-    if (score === null || score < quizData.passingScore) {
+    const isTextSubmit = quizData.type === "text-submit";
+
+    // Validate score only if NOT text-submit
+    if (!isTextSubmit && (score === null || score < quizData.passingScore)) {
       alert(
         `You must pass the quiz before marking it as complete. Your score: ${score}%, Required: ${quizData.passingScore}%`
       );
@@ -116,7 +207,6 @@ export default function QuizChapter({
     try {
       setSubmitting(true);
 
-      // Save quiz score to database
       const res = await fetch("/api/courses/quiz/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -124,22 +214,16 @@ export default function QuizChapter({
           courseSlug,
           chapterId: quizData.chapterId,
           quizId: quizData.quizId,
-          score,
-          totalQuestions: quizData.questions.length,
+          score: score || 100,
+          totalQuestions: normalizedQuestions.length,
           answers,
+          saveOnly: false, // Explicitly complete the chapter
         }),
       });
 
       if (res.ok) {
         const data = await res.json();
 
-        setQuizStatus({
-          score,
-          totalQuestions: quizData.questions.length,
-          completedAt: new Date(),
-        });
-
-        // Notify parent component of completion
         if (onQuizComplete) {
           onQuizComplete(data);
         }
@@ -164,8 +248,7 @@ export default function QuizChapter({
     );
   }
 
-  // Safety check for quiz data
-  if (!quizData || !quizData.questions || quizData.questions.length === 0) {
+  if (!normalizedQuestions || normalizedQuestions.length === 0) {
     console.error("Quiz data is missing or invalid:", quizData);
     return (
       <div className="h-full flex flex-col items-center justify-center text-gray-400">
@@ -173,14 +256,14 @@ export default function QuizChapter({
         <p className="text-sm font-medium text-red-600">
           Quiz data could not be loaded
         </p>
-        <p className="text-xs text-gray-500 mt-2">
-          Please check the console for details
-        </p>
       </div>
     );
   }
 
-  const isPassed = score !== null && score >= quizData.passingScore;
+  const isTextSubmit = quizData.type === "text-submit";
+  const isPassed = isTextSubmit
+    ? isSubmitted
+    : score !== null && score >= quizData.passingScore;
 
   return (
     <div className="max-w-4xl mx-auto px-6 py-12 lg:px-12">
@@ -198,16 +281,38 @@ export default function QuizChapter({
           </div>
         </div>
 
-        <div className="flex gap-4 text-sm">
-          <div className="flex items-center gap-2 bg-green-50 px-4 py-2 rounded-lg">
-            <Award className="w-4 h-4 text-green-600" />
-            <span className="font-semibold text-green-900">
-              Passing Score: {quizData.passingScore}%
-            </span>
+        {/* Extra info for scenario or clients */}
+        {quizData.portfolioTypes && (
+          <div className="mb-6 p-4 bg-indigo-50 rounded-xl border border-indigo-100">
+            <h4 className="font-bold text-indigo-900 mb-2">
+              Reference Portfolios:
+            </h4>
+            <div className="grid gap-3 sm:grid-cols-3">
+              {quizData.portfolioTypes.map((pt, idx) => (
+                <div key={idx} className="bg-white p-3 rounded-lg shadow-sm">
+                  <div className="font-bold text-indigo-700">{pt.type}</div>
+                  <div className="text-sm text-gray-600">{pt.allocation}</div>
+                  {pt.risk && (
+                    <div className="text-xs text-gray-400 mt-1">{pt.risk}</div>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
+        )}
+
+        <div className="flex gap-4 text-sm">
+          {quizData.passingScore && (
+            <div className="flex items-center gap-2 bg-green-50 px-4 py-2 rounded-lg">
+              <Award className="w-4 h-4 text-green-600" />
+              <span className="font-semibold text-green-900">
+                Passing Score: {quizData.passingScore}%
+              </span>
+            </div>
+          )}
         </div>
 
-        {submitted && (
+        {isSubmitted && (
           <div
             className={`mt-4 p-4 rounded-xl border-2 ${
               isPassed
@@ -227,15 +332,25 @@ export default function QuizChapter({
                     isPassed ? "text-green-900" : "text-red-900"
                   }`}
                 >
-                  {isPassed ? "Congratulations! You Passed!" : "Quiz Failed"}
+                  {isPassed
+                    ? isTextSubmit
+                      ? "Activity Completed"
+                      : "Congratulations! You Passed!"
+                    : "Quiz Failed"}
                 </h3>
-                <p
-                  className={`text-sm ${
-                    isPassed ? "text-green-700" : "text-red-700"
-                  }`}
-                >
-                  Your Score: {score}% ({quizData.questions.length} questions)
-                </p>
+                {message && (
+                  <p className="text-green-700 font-medium mt-1">{message}</p>
+                )}
+                {!isTextSubmit && (
+                  <p
+                    className={`text-sm ${
+                      isPassed ? "text-green-700" : "text-red-700"
+                    }`}
+                  >
+                    Your Score: {score}% ({normalizedQuestions.length}{" "}
+                    questions)
+                  </p>
+                )}
               </div>
             </div>
           </div>
@@ -244,34 +359,37 @@ export default function QuizChapter({
 
       {/* Questions */}
       <div className="space-y-8">
-        {quizData.questions.map((question, qIndex) => {
+        {normalizedQuestions.map((question, qIndex) => {
           const userAnswer = answers[question.id];
-          const isCorrect = userAnswer === question.correctAnswer;
-          const showFeedback = submitted;
+
+          let cardStyle = "bg-white border-gray-200 hover:border-blue-300";
+          if (isSubmitted) {
+            if (isTextSubmit) {
+              cardStyle = "bg-green-50 border-green-200";
+            } else {
+              const isCorrect = userAnswer === question.correctAnswer;
+              cardStyle = isCorrect
+                ? "bg-green-50 border-green-200"
+                : "bg-red-50 border-red-200";
+            }
+          }
 
           return (
             <div
               key={question.id}
-              className={`p-6 rounded-xl border-2 transition-all ${
-                showFeedback
-                  ? isCorrect
-                    ? "bg-green-50 border-green-200"
-                    : userAnswer !== undefined
-                    ? "bg-red-50 border-red-200"
-                    : "bg-gray-50 border-gray-200"
-                  : "bg-white border-gray-200 hover:border-blue-300"
-              }`}
+              className={`p-6 rounded-xl border-2 transition-all ${cardStyle}`}
             >
               <div className="flex gap-3 mb-4">
                 <div className="shrink-0 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold">
                   {qIndex + 1}
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 flex-1">
+                <div className="text-lg text-gray-900 flex-1">
+                  {/* Handle both string questions and React Node questions (from clients) */}
                   {question.question}
-                </h3>
-                {showFeedback && userAnswer !== undefined && (
+                </div>
+                {isSubmitted && !isTextSubmit && (
                   <div className="shrink-0">
-                    {isCorrect ? (
+                    {userAnswer === question.correctAnswer ? (
                       <CheckCircle className="w-6 h-6 text-green-600" />
                     ) : (
                       <XCircle className="w-6 h-6 text-red-600" />
@@ -280,63 +398,82 @@ export default function QuizChapter({
                 )}
               </div>
 
-              <div className="space-y-3 ml-11">
-                {question.options.map((option, optIndex) => {
-                  const isSelected = userAnswer === optIndex;
-                  const isCorrectOption = optIndex === question.correctAnswer;
-                  const showAsCorrect = showFeedback && isCorrectOption;
-                  const showAsWrong = showFeedback && isSelected && !isCorrect;
+              <div className="ml-11">
+                {isTextSubmit ? (
+                  !isSubmitted && (
+                    <textarea
+                      className={`w-full p-4 rounded-lg border-2 focus:ring-0 focus:outline-none transition-all border-gray-200 focus:border-blue-400 focus:bg-blue-50`}
+                      rows={4}
+                      placeholder="Type your answer here..."
+                      value={userAnswer || ""}
+                      onChange={(e) =>
+                        handleAnswerChange(question.id, e.target.value)
+                      }
+                      disabled={isSubmitted}
+                    />
+                  )
+                ) : (
+                  <div className="space-y-3">
+                    {question.options?.map((option, optIndex) => {
+                      const isSelected = userAnswer === optIndex;
+                      const isCorrectOption =
+                        optIndex === question.correctAnswer;
+                      const showAsCorrect = isSubmitted && isCorrectOption;
+                      const showAsWrong =
+                        isSubmitted && isSelected && !isCorrectOption;
 
-                  return (
-                    <label
-                      key={optIndex}
-                      className={`flex items-center gap-3 p-4 rounded-lg border-2 cursor-pointer transition-all ${
-                        submitted
-                          ? "cursor-not-allowed"
-                          : "hover:border-blue-400 hover:bg-blue-50"
-                      } ${
-                        showAsCorrect
-                          ? "bg-green-100 border-green-400"
-                          : showAsWrong
-                          ? "bg-red-100 border-red-400"
-                          : isSelected
-                          ? "bg-blue-100 border-blue-400"
-                          : "bg-white border-gray-200"
-                      }`}
-                    >
-                      <input
-                        type="radio"
-                        name={`question-${question.id}`}
-                        checked={isSelected}
-                        onChange={() =>
-                          handleAnswerChange(question.id, optIndex)
-                        }
-                        disabled={submitted}
-                        className="w-5 h-5 text-blue-600"
-                      />
-                      <span
-                        className={`flex-1 font-medium ${
-                          showAsCorrect
-                            ? "text-green-900"
-                            : showAsWrong
-                            ? "text-red-900"
-                            : "text-gray-800"
-                        }`}
-                      >
-                        {option}
-                      </span>
-                      {showAsCorrect && (
-                        <CheckCircle className="w-5 h-5 text-green-600" />
-                      )}
-                      {showAsWrong && (
-                        <XCircle className="w-5 h-5 text-red-600" />
-                      )}
-                    </label>
-                  );
-                })}
+                      return (
+                        <label
+                          key={optIndex}
+                          className={`flex items-center gap-3 p-4 rounded-lg border-2 cursor-pointer transition-all ${
+                            isSubmitted
+                              ? "cursor-not-allowed"
+                              : "hover:border-blue-400 hover:bg-blue-50"
+                          } ${
+                            showAsCorrect
+                              ? "bg-green-100 border-green-400"
+                              : showAsWrong
+                              ? "bg-red-100 border-red-400"
+                              : isSelected
+                              ? "bg-blue-100 border-blue-400"
+                              : "bg-white border-gray-200"
+                          }`}
+                        >
+                          <input
+                            type="radio"
+                            name={`question-${question.id}`}
+                            checked={isSelected}
+                            onChange={() =>
+                              handleAnswerChange(question.id, optIndex)
+                            }
+                            disabled={isSubmitted}
+                            className="w-5 h-5 text-blue-600"
+                          />
+                          <span
+                            className={`flex-1 font-medium ${
+                              showAsCorrect
+                                ? "text-green-900"
+                                : showAsWrong
+                                ? "text-red-900"
+                                : "text-gray-800"
+                            }`}
+                          >
+                            {option}
+                          </span>
+                          {showAsCorrect && (
+                            <CheckCircle className="w-5 h-5 text-green-600" />
+                          )}
+                          {showAsWrong && (
+                            <XCircle className="w-5 h-5 text-red-600" />
+                          )}
+                        </label>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
 
-              {showFeedback && question.explanation && (
+              {isSubmitted && question.explanation && (
                 <div className="mt-4 ml-11 p-4 bg-blue-50 border-l-4 border-blue-400 rounded">
                   <div className="flex gap-2">
                     <AlertCircle className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
@@ -358,7 +495,7 @@ export default function QuizChapter({
 
       {/* Action Buttons */}
       <div className="mt-12 pt-8 border-t border-gray-200 flex justify-end gap-4">
-        {!submitted ? (
+        {!isSubmitted ? (
           <button
             onClick={handleSubmit}
             disabled={submitting}
@@ -378,7 +515,6 @@ export default function QuizChapter({
           </button>
         ) : (
           <>
-            {/* If quiz is already completed (saved in database), show Continue button */}
             {isCompleted && isPassed ? (
               onContinue && (
                 <button
@@ -391,7 +527,6 @@ export default function QuizChapter({
               )
             ) : (
               <>
-                {/* If passed but not yet marked complete, show Mark as Completed button */}
                 {isPassed && !isCompleted && (
                   <button
                     onClick={handleMarkComplete}
@@ -411,8 +546,7 @@ export default function QuizChapter({
                     )}
                   </button>
                 )}
-                {/* If failed, show Retake Quiz button */}
-                {!isPassed && (
+                {!isPassed && !isTextSubmit && (
                   <button
                     onClick={handleRetakeQuiz}
                     className="bg-orange-600 hover:bg-orange-700 text-white px-8 py-3 rounded-xl font-bold flex items-center gap-2 transition-all shadow-lg hover:shadow-orange-200"

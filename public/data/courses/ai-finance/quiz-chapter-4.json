@@ -1,0 +1,27 @@
+{
+  "quizId": "quiz-finance-data-1",
+  "chapterId": "chapter-4-Quiz",
+  "title": "How Your Financial Habits Create Data",
+  "type": "text-submit",
+  "instructions": "Reflect on your daily financial habits and answer the following questions. Then list 2–3 types of data that your actions created.",
+  "passingScore": null,
+  "timeLimit": null,
+  "questions": [
+    {
+      "id": 1,
+      "question": "Did you make any purchases today? If yes, what did you buy and how did you pay?"
+    },
+    {
+      "id": 2,
+      "question": "Did you check any financial app today? If yes, which one?"
+    },
+    {
+      "id": 3,
+      "question": "Did you save or invest anything today?"
+    },
+    {
+      "id": 4,
+      "question": "List 2–3 types of data your financial activities created today."
+    }
+  ]
+}

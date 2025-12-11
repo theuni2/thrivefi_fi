@@ -27,11 +27,25 @@
       "content": "chapter-2.json"
     },
     {
+      "chapterId": "chapter-2-Quiz",
+      "chapterNumber": 2.1,
+      "title": "AI Quiz: Fraud Detection with AI",
+      "description": "Read the scenario carefully and type your response in the text box.",
+      "content": "quiz-chapter-2.json"
+    },
+    {
       "chapterId": "chapter-3",
       "chapterNumber": 3,
       "title": "AI IN INVESTMENTS AND TRADING",
       "description": "Learn about robo-advisors and AI-powered trading",
       "content": "chapter-3.json"
+    },
+    {
+      "chapterId": "chapter-3-Quiz",
+      "chapterNumber": 3.1,
+      "title": "AI Quiz: Robo-Advisors and AI",
+      "description": "Review each client's profile and type what portfolio you think the AI robo-advisor should recommend.",
+      "content": "quiz-chapter-3.json"
     },
     {
       "chapterId": "chapter-4",
@@ -41,6 +55,13 @@
       "content": "chapter-4.json"
     },
     {
+      "chapterId": "chapter-4-Quiz",
+      "chapterNumber": 4.1,
+      "title": "AI Quiz: How Your Financial Habits Create Data",
+      "description": "Reflect on your daily financial habits and answer the following questions.",
+      "content": "quiz-chapter-4.json"
+    },
+    {
       "chapterId": "chapter-5",
       "chapterNumber": 5,
       "title": "AI FOR PERSONAL FINANCE",
@@ -48,11 +69,25 @@
       "content": "chapter-5.json"
     },
     {
+      "chapterId": "chapter-5-Quiz",
+      "chapterNumber": 5.1,
+      "title": "AI Quiz: Bill Reminders and Payments with AI",
+      "description": "List the bills you pay regularly and describe how you think AI can help you track, manage, or automate these payments.",
+      "content": "quiz-chapter-5.json"
+    },
+    {
       "chapterId": "chapter-6",
       "chapterNumber": 6,
       "title": "ETHICS IN AI",
       "description": "Understanding ethical considerations in AI finance",
       "content": "chapter-6.json"
+    },
+    {
+      "chapterId": "chapter-6-Quiz",
+      "chapterNumber": 6.1,
+      "title": "AI Quiz: Real-World Challenges and Ethical AI in Finance",
+      "description": "Design your own set of ethical guidelines for how AI should be used in finance.",
+      "content": "quiz-chapter-6.json"
     },
     {
       "chapterId": "chapter-7",

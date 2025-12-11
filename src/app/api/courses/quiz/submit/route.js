@@ -17,8 +17,15 @@ export async function POST(req) {
       return NextResponse.json({ error: "Invalid token" }, { status: 401 });
     }
 
-    const { courseSlug, chapterId, quizId, score, totalQuestions, answers } =
-      await req.json();
+    const {
+      courseSlug,
+      chapterId,
+      quizId,
+      score,
+      totalQuestions,
+      answers,
+      saveOnly,
+    } = await req.json();
 
     if (!courseSlug || !chapterId || !quizId || score === undefined) {
       return NextResponse.json({ error: "Missing fields" }, { status: 400 });
@@ -44,28 +51,61 @@ export async function POST(req) {
     }
 
     // Check if quiz was already submitted
-    const existingQuiz = enrollment.quizScores.find((q) => q.quizId === quizId);
+    const existingQuizIndex = enrollment.quizScores.findIndex(
+      (q) => q.quizId === quizId
+    );
 
-    if (existingQuiz) {
-      return NextResponse.json(
-        { error: "Quiz already submitted. Retakes are not allowed." },
-        { status: 400 }
-      );
-    }
+    if (existingQuizIndex !== -1) {
+      // Quiz exists. check if chapter is marked complete
+      const isChapterCompleted =
+        enrollment.completedChapters.includes(chapterId);
 
-    // Add quiz score
-    enrollment.quizScores.push({
-      quizId,
-      chapterId,
-      score,
-      totalQuestions,
-      completedAt: new Date(),
-    });
+      // If chapter is already completed, we generally don't allow changes unless it's a "saveOnly" request that might be redundant but harmless?
+      // Actually per requirements, "once submit there should be no option to edit".
+      // But "Submit" (saveOnly) happens BEFORE "Mark as Completed".
+      // So if isChapterCompleted is true, we block.
+      if (isChapterCompleted) {
+        return NextResponse.json(
+          { error: "Chapter already completed. Retakes are not allowed." },
+          { status: 400 }
+        );
+      }
 
-    // Mark chapter as completed if passed (score >= passing score)
-    // We'll assume passing score is 60% (you can pass this from frontend if needed)
-    if (score >= 60 && !enrollment.completedChapters.includes(chapterId)) {
-      enrollment.completedChapters.push(chapterId);
+      // Update existing quiz entry (e.g. they saved once, now saving again or completing)
+      // Update the chapterId reference in quizScore to match current request (fix for id mismatch issues)
+      enrollment.quizScores[existingQuizIndex].chapterId = chapterId;
+
+      if (answers) {
+        enrollment.quizScores[existingQuizIndex].answers = answers;
+      }
+
+      if (score !== undefined) {
+        enrollment.quizScores[existingQuizIndex].score = score;
+      }
+
+      // Mark chapter as completed ONLY if NOT saveOnly
+      if (!saveOnly && score >= 60) {
+        enrollment.completedChapters.push(chapterId);
+      }
+    } else {
+      // New Submission
+      enrollment.quizScores.push({
+        quizId,
+        chapterId,
+        score,
+        totalQuestions,
+        answers, // Save answers
+        completedAt: new Date(),
+      });
+
+      // Mark chapter as completed ONLY if NOT saveOnly
+      if (
+        !saveOnly &&
+        score >= 60 &&
+        !enrollment.completedChapters.includes(chapterId)
+      ) {
+        enrollment.completedChapters.push(chapterId);
+      }
     }
 
     // Update last accessed

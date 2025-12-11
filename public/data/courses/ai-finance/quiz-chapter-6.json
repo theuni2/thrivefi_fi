@@ -1,0 +1,23 @@
+{
+  "quizId": "quiz-6-1",
+  "chapterId": "chapter-6-Quiz",
+  "title": "Real-World Challenges and Ethical AI in Finance",
+  "type": "text-submit",
+  "instructions": "Design your own set of ethical guidelines for how AI should be used in finance. Include rules that ensure fairness, transparency, and privacy.",
+  "passingScore": null,
+  "timeLimit": null,
+  "questions": [
+    {
+      "id": 1,
+      "question": "What rules should AI systems follow to ensure fairness in financial decisions?"
+    },
+    {
+      "id": 2,
+      "question": "What guidelines should be in place to ensure transparency in how AI makes financial recommendations or decisions?"
+    },
+    {
+      "id": 3,
+      "question": "What privacy protections should be required when AI uses personal or financial data?"
+    }
+  ]
+}
