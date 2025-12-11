@@ -65,10 +65,17 @@ export async function POST(req) {
       // But "Submit" (saveOnly) happens BEFORE "Mark as Completed".
       // So if isChapterCompleted is true, we block.
       if (isChapterCompleted) {
-        return NextResponse.json(
-          { error: "Chapter already completed. Retakes are not allowed." },
-          { status: 400 }
-        );
+        // If chapter is already completed, we return the existing success state
+        // This allows the frontend to process it as a successful "sync" or "view" action
+        // without throwing an error alert to the user.
+        return NextResponse.json({
+          success: true,
+          score: enrollment.quizScores[existingQuizIndex].score,
+          progress: enrollment.progress,
+          completedChapters: enrollment.completedChapters,
+          quizScores: enrollment.quizScores,
+          message: "Chapter already completed",
+        });
       }
 
       // Update existing quiz entry (e.g. they saved once, now saving again or completing)

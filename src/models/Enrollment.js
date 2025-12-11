@@ -23,6 +23,7 @@ const EnrollmentSchema = new mongoose.Schema(
           score: Number,
           totalQuestions: Number,
           completedAt: { type: Date, default: Date.now },
+          answers: { type: mongoose.Schema.Types.Mixed },
         },
       ],
       default: [],
