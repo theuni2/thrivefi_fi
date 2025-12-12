@@ -9,6 +9,7 @@ export default function Nav() {
     { name: "About Us", href: "/about_thrivefi" },
     { name: "ReGenVest", href: "/regenvest" },
     { name: "Conference", href: "/speaker" },
+    { name: "Consult", href: "/login" },
   ];
 
   return (
