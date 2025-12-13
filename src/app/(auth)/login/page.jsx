@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Nav from "@/components/nav";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -101,56 +102,61 @@ export default function LoginPage() {
   };
 
   const renderLogin = () => (
-    <div className="w-full max-w-md bg-white dark:bg-gray-100 p-8 rounded-xl shadow border dark:border-gray-400">
-      <h2 className="text-2xl font-semibold mb-4 text-center text-gray-900 dark:text-gray-900">
-        Login
-      </h2>
+    <div className="flex flex-col min-h-screen w-full">
+      <Nav />
+      <div className="flex justify-center items-center h-[90vh]">
+        <div className="w-full max-w-md bg-white dark:bg-gray-100 p-8 rounded-xl shadow border dark:border-gray-400">
+          <h2 className="text-2xl font-semibold mb-4 text-center text-gray-900 dark:text-gray-900">
+            Login
+          </h2>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <input
-          name="email"
-          type="email"
-          placeholder="Email"
-          required
-          value={form.email}
-          onChange={handleChange}
-          className="w-full p-3 border rounded bg-white dark:bg-white border-gray-300 dark:border-gray-400 text-gray-900 dark:text-gray-900 placeholder-gray-500 dark:placeholder-gray-500 focus:ring-2 focus:ring-blue-500 outline-none"
-        />
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <input
+              name="email"
+              type="email"
+              placeholder="Email"
+              required
+              value={form.email}
+              onChange={handleChange}
+              className="w-full p-3 border rounded bg-white dark:bg-white border-gray-300 dark:border-gray-400 text-gray-900 dark:text-gray-900 placeholder-gray-500 dark:placeholder-gray-500 focus:ring-2 focus:ring-blue-500 outline-none"
+            />
 
-        <input
-          name="password"
-          type="password"
-          placeholder="Password"
-          required
-          value={form.password}
-          onChange={handleChange}
-          className="w-full p-3 border rounded bg-white dark:bg-white border-gray-300 dark:border-gray-400 text-gray-900 dark:text-gray-900 placeholder-gray-500 dark:placeholder-gray-500 focus:ring-2 focus:ring-blue-500 outline-none"
-        />
+            <input
+              name="password"
+              type="password"
+              placeholder="Password"
+              required
+              value={form.password}
+              onChange={handleChange}
+              className="w-full p-3 border rounded bg-white dark:bg-white border-gray-300 dark:border-gray-400 text-gray-900 dark:text-gray-900 placeholder-gray-500 dark:placeholder-gray-500 focus:ring-2 focus:ring-blue-500 outline-none"
+            />
 
-        <button
-          type="button"
-          onClick={() => setView("forgot")}
-          className="text-sm text-blue-600 hover:underline block text-right"
-        >
-          Forgot Password?
-        </button>
+            <button
+              type="button"
+              onClick={() => setView("forgot")}
+              className="text-sm text-blue-600 hover:underline block text-right"
+            >
+              Forgot Password?
+            </button>
 
-        {error && <p className="text-red-500 text-sm">{error}</p>}
+            {error && <p className="text-red-500 text-sm">{error}</p>}
 
-        <button
-          disabled={loading}
-          className="w-full bg-blue-600 text-white p-3 rounded hover:bg-blue-700 disabled:bg-blue-400"
-        >
-          {loading ? "Logging in..." : "Login"}
-        </button>
-      </form>
+            <button
+              disabled={loading}
+              className="w-full bg-blue-600 text-white p-3 rounded hover:bg-blue-700 disabled:bg-blue-400"
+            >
+              {loading ? "Logging in..." : "Login"}
+            </button>
+          </form>
 
-      <p className="mt-4 text-center text-sm text-gray-600 dark:text-gray-600">
-        Don’t have an account?{" "}
-        <a href="/register" className="text-blue-600 hover:underline">
-          Register
-        </a>
-      </p>
+          <p className="mt-4 text-center text-sm text-gray-600 dark:text-gray-600">
+            Don’t have an account?{" "}
+            <a href="/register" className="text-blue-600 hover:underline">
+              Register
+            </a>
+          </p>
+        </div>
+      </div>
     </div>
   );
 

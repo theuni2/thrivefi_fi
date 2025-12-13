@@ -553,7 +553,9 @@ export default function Course() {
 
                       return allChaptersCompleted ? (
                         <div className="px-8 py-3 rounded-xl font-bold flex items-center gap-2 bg-green-100 text-green-700 cursor-default">
-                          <CheckCircle className="w-5 h-5" /> Course Completed
+                          <CheckCircle className="w-5 h-5" /> Course Completed,
+                          You will receive a certificate on your email within
+                          2-3 working days
                         </div>
                       ) : (
                         <div className="px-8 py-3 rounded-xl font-bold flex items-center gap-2 bg-yellow-100 text-yellow-700 cursor-default">

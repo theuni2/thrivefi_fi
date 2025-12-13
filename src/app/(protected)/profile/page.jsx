@@ -10,6 +10,7 @@ import {
 import ProfileHeader from "@/components/profile/ProfileHeader";
 import StatsGrid from "@/components/profile/StatsGrid";
 import CourseList from "@/components/profile/CourseList";
+import Nav from "@/components/nav";
 
 export default function Profile() {
   const router = useRouter();
@@ -162,29 +163,34 @@ export default function Profile() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 font-sans text-slate-900">
-      {/* Top Banner / Decoration */}
-      <div className="h-64 bg-gradient-to-r from-blue-700 via-indigo-600 to-violet-600 px-6 sm:px-12 relative overflow-hidden">
-        {/* Abstract shapes */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-white opacity-5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3"></div>
-        <div className="absolute bottom-0 left-0 w-64 h-64 bg-black opacity-10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/4"></div>
-      </div>
+    <div className="flex flex-col min-h-screen w-full">
+      <Nav />
+      <div className="w-full bg-red-100">
+        <div className="min-h-screen bg-slate-50 font-sans text-slate-900">
+          {/* Top Banner / Decoration */}
+          <div className="h-54 bg-gradient-to-r from-blue-700 via-indigo-600 to-violet-600 px-6 sm:px-12 relative overflow-hidden">
+            {/* Abstract shapes */}
+            <div className="absolute top-0 right-0 w-96 h-96 bg-white opacity-5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3"></div>
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-black opacity-10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/4"></div>
+          </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-32 relative z-10 pb-12">
-        {/* PROFILE HEADER CARD */}
-        <ProfileHeader
-          student={studentData}
-          isVerified={user.verified}
-          onVerifyClick={() => router.push("/verify-email")}
-          onLogout={logout}
-          onViewDetails={() => router.push("/profile/details")}
-        />
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-32 relative z-10 pb-12">
+            {/* PROFILE HEADER CARD */}
+            <ProfileHeader
+              student={studentData}
+              isVerified={user.verified}
+              onVerifyClick={() => router.push("/verify-email")}
+              onLogout={logout}
+              onViewDetails={() => router.push("/profile/details")}
+            />
 
-        {/* STATS GRID */}
-        <StatsGrid stats={stats} />
+            {/* STATS GRID */}
+            <StatsGrid stats={stats} />
 
-        {/* COURSES SECTION */}
-        <CourseList courses={courses} />
+            {/* COURSES SECTION */}
+            <CourseList courses={courses} />
+          </div>
+        </div>
       </div>
     </div>
   );
