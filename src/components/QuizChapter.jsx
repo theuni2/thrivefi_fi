@@ -274,10 +274,12 @@ export default function QuizChapter({
             <Award className="w-6 h-6 text-purple-600" />
           </div>
           <div>
-            <h1 className="text-3xl font-extrabold text-gray-900">
+            <h1 className="text-3xl font-extrabold text-gray-900 dark:text-gray-900">
               {quizData.title}
             </h1>
-            <p className="text-gray-600 mt-1">{quizData.instructions}</p>
+            <p className="text-gray-600 dark:text-gray-600 mt-1">
+              {quizData.instructions}
+            </p>
           </div>
         </div>
 
@@ -362,15 +364,17 @@ export default function QuizChapter({
         {normalizedQuestions.map((question, qIndex) => {
           const userAnswer = answers[question.id];
 
-          let cardStyle = "bg-white border-gray-200 hover:border-blue-300";
+          let cardStyle =
+            "bg-white border-gray-200 dark:border-gray-400 hover:border-blue-300";
           if (isSubmitted) {
             if (isTextSubmit) {
-              cardStyle = "bg-green-50 border-green-200";
+              cardStyle =
+                "bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800";
             } else {
               const isCorrect = userAnswer === question.correctAnswer;
               cardStyle = isCorrect
-                ? "bg-green-50 border-green-200"
-                : "bg-red-50 border-red-200";
+                ? "bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800"
+                : "bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800";
             }
           }
 
@@ -383,7 +387,7 @@ export default function QuizChapter({
                 <div className="shrink-0 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold">
                   {qIndex + 1}
                 </div>
-                <div className="text-lg text-gray-900 flex-1">
+                <div className="text-lg text-gray-900 dark:text-gray-800 flex-1">
                   {/* Handle both string questions and React Node questions (from clients) */}
                   {question.question}
                 </div>
@@ -402,7 +406,7 @@ export default function QuizChapter({
                 {isTextSubmit ? (
                   !isSubmitted && (
                     <textarea
-                      className={`w-full p-4 rounded-lg border-2 focus:ring-0 focus:outline-none transition-all border-gray-200 focus:border-blue-400 focus:bg-blue-50`}
+                      className={`w-full p-4 rounded-lg border-2 focus:ring-0 focus:outline-none transition-all border-gray-200 dark:border-gray-400 focus:border-blue-400 focus:bg-blue-50 dark:focus:bg-blue-50 bg-white dark:bg-white text-gray-900 dark:text-gray-900 placeholder-gray-500 dark:placeholder-gray-500`}
                       rows={4}
                       placeholder="Type your answer here..."
                       value={userAnswer || ""}
@@ -436,7 +440,7 @@ export default function QuizChapter({
                               ? "bg-red-100 border-red-400"
                               : isSelected
                               ? "bg-blue-100 border-blue-400"
-                              : "bg-white border-gray-200"
+                              : "bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700"
                           }`}
                         >
                           <input
@@ -452,10 +456,10 @@ export default function QuizChapter({
                           <span
                             className={`flex-1 font-medium ${
                               showAsCorrect
-                                ? "text-green-900"
+                                ? "text-green-900 dark:text-green-300"
                                 : showAsWrong
-                                ? "text-red-900"
-                                : "text-gray-800"
+                                ? "text-red-900 dark:text-red-300"
+                                : "text-gray-800 dark:text-gray-200"
                             }`}
                           >
                             {option}

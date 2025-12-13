@@ -56,8 +56,8 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="w-full max-w-md bg-white p-8 rounded-xl shadow">
-      <h2 className="text-2xl font-semibold mb-4 text-center">
+    <div className="w-full max-w-md bg-white dark:bg-gray-100 p-8 rounded-xl shadow border dark:border-gray-800">
+      <h2 className="text-2xl font-semibold mb-4 text-center text-gray-900 dark:text-gray-900">
         Create Account
       </h2>
 
@@ -69,7 +69,7 @@ export default function RegisterPage() {
           required
           value={form.name}
           onChange={handleChange}
-          className="w-full p-3 border rounded"
+          className="w-full p-3 border rounded bg-white dark:bg-white border-gray-300 dark:border-gray-400 text-gray-900 dark:text-gray-900 placeholder-gray-500 dark:placeholder-gray-500 focus:ring-2 focus:ring-blue-500 outline-none"
         />
 
         <input
@@ -79,7 +79,7 @@ export default function RegisterPage() {
           required
           value={form.email}
           onChange={handleChange}
-          className="w-full p-3 border rounded"
+          className="w-full p-3 border rounded bg-white dark:bg-white border-gray-300 dark:border-gray-400 text-gray-900 dark:text-gray-900 placeholder-gray-500 dark:placeholder-gray-500 focus:ring-2 focus:ring-blue-500 outline-none"
         />
 
         <input
@@ -89,7 +89,7 @@ export default function RegisterPage() {
           required
           value={form.password}
           onChange={handleChange}
-          className="w-full p-3 border rounded"
+          className="w-full p-3 border rounded bg-white dark:bg-white border-gray-300 dark:border-gray-400 text-gray-900 dark:text-gray-900 placeholder-gray-500 dark:placeholder-gray-500 focus:ring-2 focus:ring-blue-500 outline-none"
         />
 
         <input
@@ -99,7 +99,7 @@ export default function RegisterPage() {
           required
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
-          className="w-full p-3 border rounded"
+          className="w-full p-3 border rounded bg-white dark:bg-white border-gray-300 dark:border-gray-400 text-gray-900 dark:text-gray-900 placeholder-gray-500 dark:placeholder-gray-500 focus:ring-2 focus:ring-blue-500 outline-none"
         />
 
         <input
@@ -109,7 +109,7 @@ export default function RegisterPage() {
           required
           value={form.address}
           onChange={handleChange}
-          className="w-full p-3 border rounded"
+          className="w-full p-3 border rounded bg-white dark:bg-white border-gray-300 dark:border-gray-400 text-gray-900 dark:text-gray-900 placeholder-gray-500 dark:placeholder-gray-500 focus:ring-2 focus:ring-blue-500 outline-none"
         />
 
         <input
@@ -118,7 +118,7 @@ export default function RegisterPage() {
           placeholder="Mobile Number (Optional)"
           value={form.mobile}
           onChange={handleChange}
-          className="w-full p-3 border rounded"
+          className="w-full p-3 border rounded bg-white dark:bg-white border-gray-300 dark:border-gray-400 text-gray-900 dark:text-gray-900 placeholder-gray-500 dark:placeholder-gray-500 focus:ring-2 focus:ring-blue-500 outline-none"
         />
 
         <input
@@ -127,22 +127,22 @@ export default function RegisterPage() {
           placeholder="Referral Code (Optional)"
           value={form.referralCode}
           onChange={handleChange}
-          className="w-full p-3 border rounded"
+          className="w-full p-3 border rounded bg-white dark:bg-white border-gray-300 dark:border-gray-400 text-gray-900 dark:text-gray-900 placeholder-gray-500 dark:placeholder-gray-500 focus:ring-2 focus:ring-blue-500 outline-none"
         />
 
         {error && <p className="text-red-500 text-sm">{error}</p>}
 
         <button
           disabled={loading}
-          className="w-full bg-blue-600 text-white p-3 rounded hover:bg-blue-700"
+          className="w-full bg-blue-600 text-white p-3 rounded hover:bg-blue-700 disabled:bg-blue-400"
         >
           {loading ? "Creating..." : "Register"}
         </button>
       </form>
 
-      <p className="mt-4 text-center text-sm">
+      <p className="mt-4 text-center text-sm text-gray-600 dark:text-gray-600">
         Already have an account?{" "}
-        <a href="/login" className="text-blue-600">
+        <a href="/login" className="text-blue-600 hover:underline">
           Login
         </a>
       </p>
