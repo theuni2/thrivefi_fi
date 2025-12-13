@@ -24,6 +24,7 @@ export async function GET(req) {
           error: "Forbidden",
           message: "Admin access required",
           success: false,
+          role: decoded.role,
         },
         { status: 403 }
       );
