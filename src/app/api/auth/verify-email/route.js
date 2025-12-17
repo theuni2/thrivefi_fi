@@ -24,7 +24,7 @@ export async function POST(req) {
     const verificationCode = generateVerificationCode();
 
     await resend.emails.send({
-      from: "no-reply@thrivefi.com",
+      from: "no-reply@thethrivefi.com",
       to: email,
       subject: "Verify Your Email",
       html: generateEmailTemplate({
